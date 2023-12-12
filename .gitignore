@@ -1,0 +1,13 @@
+node_modules
+build
+coverage
+.vscode
+.DS_STORE
+.env
+tmp
+dist
+.nuxt
+.cache
+.sass-cache
+logs
+npm-debug.log
