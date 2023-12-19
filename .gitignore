@@ -1,13 +1,25 @@
-node_modules
-build
-coverage
-.vscode
-.DS_STORE
-.env
-tmp
-dist
+# Nuxt dev/build outputs
+.output
+.data
 .nuxt
+.nitro
 .cache
-.sass-cache
+dist
+
+# Node dependencies
+node_modules
+
+# Logs
 logs
-npm-debug.log
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+.vscode
+
+# Local env files
+.env
+.env.*
+!.env.example
