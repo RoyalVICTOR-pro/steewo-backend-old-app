@@ -1,12 +1,12 @@
 export default defineI18nConfig(() => ({
   legacy: false,
   locale: 'fr',
-  fallbackLocale: "fr",
+  fallbackLocale: 'fr',
   globalInjection: true,
   messages: {
     fr: {
       bo: {
-        title: 'Espace d\'adminstration',
+        title: "Espace d'adminstration",
         forms: {
           fields: {
             email: 'Email',
@@ -18,9 +18,8 @@ export default defineI18nConfig(() => ({
           errors: {
             required: 'Ce champ est requis',
           },
-          }
-        }
+        },
       },
-    }
-  }
-))
+    },
+  },
+}))

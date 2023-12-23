@@ -13,9 +13,9 @@ export default {
       meta: [
         { name: 'color-scheme', content: 'light' }, // Forcer le light mode
       ],
-    };
+    }
   },
-};
+}
 </script>
 
 <style scoped>
