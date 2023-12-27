@@ -5,6 +5,7 @@ import { useFetch } from '@vueuse/core'
 export const useAuthStore = defineStore('auth', () => {
   const { $api } = useNuxtApp()
   const isLoggedIn = ref(false)
+  const askedRoute = ref('')
 
   const login = async (email: string, password: string) => {
     console.log('Entrée dans le login côté store')
