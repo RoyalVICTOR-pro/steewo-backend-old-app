@@ -4,7 +4,6 @@ import { useFetch } from '@vueuse/core'
 
 export const useAuthStore = defineStore('auth', () => {
   const { $api } = useNuxtApp()
-  const isLoggedIn = ref(false)
   const askedRoute = ref('')
 
   const login = async (email: string, password: string) => {
@@ -37,9 +36,14 @@ export const useAuthStore = defineStore('auth', () => {
     // faire une route pour revoker le token et l'appeler
   }
 
+  function setAskedRoute(route: string) {
+    askedRoute.value = route
+  }
+
   return {
-    isLoggedIn,
+    askedRoute,
     login,
     logout,
+    setAskedRoute,
   }
 })
