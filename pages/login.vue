@@ -4,6 +4,7 @@ import { z } from 'zod'
 const { t } = useI18n()
 const authStore = useAuthStore()
 const router = useRouter()
+const route = useRoute()
 
 const schema = z.object({
   email: z
@@ -23,10 +24,15 @@ const state = reactive({
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   if (state.email === undefined || state.password === undefined) return
-  console.log('passage dans onSubmit')
   if (await authStore.login(state.email, state.password)) {
-    console.log('on va naviguer vers /')
-    await router.push('/')
+    console.log('We want to go to ' + route.query.redirect)
+    let redirect = route.query.redirect
+    if (redirect) {
+      console.log('We go to /' + redirect)
+      await router.push('/' + redirect)
+    } else {
+      await router.push('/')
+    }
   } else {
     console.log('erreur')
     // event.form.setErrors({

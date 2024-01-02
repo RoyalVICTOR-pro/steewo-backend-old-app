@@ -4,46 +4,69 @@ import { useFetch } from '@vueuse/core'
 
 export const useAuthStore = defineStore('auth', () => {
   const { $api } = useNuxtApp()
+  const user = ref({})
   const askedRoute = ref('')
+  const isLoggedIn = ref(false)
+  // const tokenCookie = useCookie('access_token', {
+  //   secure: true,
+  //   samesite: 'none',
+  // })
 
   const login = async (email: string, password: string) => {
-    console.log('Entrée dans le login côté store')
     try {
-      console.log("$api('/login') :>> ", $api('/login'))
-      const fetchResponse = useFetch($api('/login')).post({
+      const fetchResponse = useFetch($api('/login'), {
+        credentials: 'include',
+      }).post({
         email,
         password,
       })
-      const { isFetching, error, data } = await fetchResponse
+      const { error, data } = await fetchResponse
       if (data.value) {
         const response = JSON.parse(data.value).loginResponse
-        if (response.token) {
-          isLoggedIn.value = true
-          console.log('response.token :>> ', response.token)
-          document.cookie = `access_token=${response.token};secure; samesite=none;`
-          console.log("le cookie vient d'être créé")
+        if (response.user) {
+          // console.log('response.token :>> ', response.token)
+          // tokenCookie.value = response.token
+          user.value = response.user
           return true
         }
       }
     } catch (error) {
       console.log('error :>> ', error)
     }
-    // TODO: gérer l'erreur (avec un store dédié aux erreurs ?)
     return false
   }
 
-  const logout = () => {
-    // faire une route pour revoker le token et l'appeler
-  }
+  const checkIfLoggedIn = async (route: string) => {
+    // console.log('headers in the isLoggedIn', tokenCookie.value)
+    const headers = useRequestHeaders(['cookie'])
+    console.log('headers :>> ', headers)
+    // const
+    // const fetchResponse =
+    // const fetchResponse = useFetch($api('/me'), {
+    //   cookie: `access_token=${tokenCookie.value}`,
+    // })
 
-  function setAskedRoute(route: string) {
-    askedRoute.value = route
+    const { error, data } = await useFetch($api('/me'), {
+      credentials: 'include',
+      headers,
+    })
+
+    if (data.value) {
+      console.log('connecté')
+      user.value = JSON.parse(data.value).user
+      isLoggedIn.value = true
+    } else {
+      console.log('non connecté')
+      askedRoute.value = route
+      isLoggedIn.value = false
+    }
+    return isLoggedIn.value
   }
 
   return {
-    askedRoute,
     login,
-    logout,
-    setAskedRoute,
+    isLoggedIn,
+    user,
+    checkIfLoggedIn,
   }
 })
