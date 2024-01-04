@@ -1,16 +1,18 @@
 <template>
   <h1>Professions</h1>
   <ul>
-    <!-- <li v-for="profession in professions">{{ profession.name }}</li> -->
+    <li v-for="profession in professions">{{ profession.name }}</li>
   </ul>
 </template>
 
 <script lang="ts" setup>
-// const { $api } = useNuxtApp()
-// const headers = useRequestHeaders(['cookie'])
-// const authStore = useAuthStore()
+const { $api } = useNuxtApp()
+const headers = useRequestHeaders(['cookie'])
+const authStore = useAuthStore()
 
-// console.log('entrée dans la page index')
+const { data: professions } = await useFetch($api('/professions'), {
+  credentials: 'include',
+})
 
 // watch(
 //   () => authStore.isLoggedIn,
@@ -18,7 +20,7 @@
 //     if (newValue !== oldValue && newValue === true) {
 //       // L'utilisateur vient de se connecter, rechargez les données
 //       const { data: professions } = await useFetch($api('/professions'), {
-//         headers,
+//         credentials: 'include',
 //       })
 //     }
 //   }

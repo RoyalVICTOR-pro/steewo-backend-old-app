@@ -25,20 +25,14 @@ const state = reactive({
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   if (state.email === undefined || state.password === undefined) return
   if (await authStore.login(state.email, state.password)) {
-    console.log('We want to go to ' + route.query.redirect)
     let redirect = route.query.redirect
     if (redirect) {
-      console.log('We go to /' + redirect)
       await router.push('/' + redirect)
     } else {
       await router.push('/')
     }
   } else {
     console.log('erreur')
-    // event.form.setErrors({
-    //   email: t('bo.forms.errors.invalidCredentials'),
-    //   password: t('bo.forms.errors.invalidCredentials'),
-    // })
   }
 }
 </script>
