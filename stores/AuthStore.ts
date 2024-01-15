@@ -19,7 +19,7 @@ export const useAuthStore = defineStore('auth', () => {
       })
       const { error, data } = await fetchResponse
       if (data.value) {
-        const response = JSON.parse(data.value).loginResponse
+        const response = JSON.parse(data.value)
         if (response.user) {
           user.value = response.user
           return true
