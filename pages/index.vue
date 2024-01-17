@@ -1,22 +1,133 @@
 <script lang="ts" setup>
-import type { Profession } from '@/types/Profession'
-const { $api } = useNuxtApp()
-const headers = useRequestHeaders(['cookie'])
-const authStore = useAuthStore()
+const navigationStore = useNavigationStore()
 
-const { data: professions } = await useFetch<Profession[]>(
-  $api('/professions'),
-  {
-    credentials: 'include',
-  }
-)
+onMounted(() => {
+  navigationStore.updatePageTitle('Tableau de bord')
+})
 </script>
 
 <template>
-  <h1>Professions</h1>
-  <ul>
-    <li v-for="profession in professions">{{ profession.name }}</li>
-  </ul>
+  <h1>Tableau de bord</h1>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aspernatur,
+    enim officia modi ipsam vero, nihil culpa similique voluptatum est ullam
+    provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
+  </p>
 </template>
 
 <style></style>

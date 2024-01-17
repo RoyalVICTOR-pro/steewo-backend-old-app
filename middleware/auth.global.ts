@@ -3,6 +3,12 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   const authStore = useAuthStore()
   const { isLoggedIn } = storeToRefs(authStore)
 
+  if (to.path === '/login') {
+    setPageLayout('blank')
+  } else {
+    setPageLayout('default')
+  }
+
   const routeToGo = to.path === '/login' ? '/' : to.path
 
   await authStore.checkIfLoggedIn(routeToGo)
