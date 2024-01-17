@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 const navigationStore = useNavigationStore()
-
-onMounted(() => {
-  navigationStore.updatePageTitle('Tableau de bord')
-})
+navigationStore.updatePageTitle('Tableau de bord')
 </script>
 
 <template>

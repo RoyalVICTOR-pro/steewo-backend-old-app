@@ -2,10 +2,7 @@
 import type { Profession } from '@/types/Profession'
 const { $api } = useNuxtApp()
 const navigationStore = useNavigationStore()
-
-onMounted(() => {
-  navigationStore.updatePageTitle('Professions')
-})
+navigationStore.updatePageTitle('Professions')
 
 const { data: professions } = await useFetch<Profession[]>(
   $api('/professions'),
