@@ -1,22 +1,23 @@
 <script lang="ts" setup>
+const { t } = useI18n()
 const links = [
   {
-    label: 'Tableau de bord',
+    label: t('bo.navigation.dashboard'),
     icon: 'i-heroicons-home',
     to: '/',
   },
   {
-    label: 'Professions',
+    label: t('bo.navigation.professions'),
     icon: 'i-heroicons-briefcase',
     to: '/professions',
   },
   {
-    label: 'Etudiants',
+    label: t('bo.navigation.students'),
     icon: 'i-heroicons-academic-cap',
     to: '/students',
   },
   {
-    label: 'Missions',
+    label: t('bo.navigation.missions'),
     icon: 'i-heroicons-newspaper',
     to: '/missions',
   },

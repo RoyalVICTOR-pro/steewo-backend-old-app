@@ -1,8 +1,3 @@
-<script lang="ts" setup>
-const authStore = useAuthStore()
-const { user } = storeToRefs(authStore)
-</script>
-
 <template>
   <h1>Tests</h1>
   <ul>
@@ -12,5 +7,10 @@ const { user } = storeToRefs(authStore)
     }}
   </ul>
 </template>
+
+<script lang="ts" setup>
+const authStore = useAuthStore()
+const { user } = storeToRefs(authStore)
+</script>
 
 <style></style>

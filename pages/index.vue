@@ -1,8 +1,3 @@
-<script lang="ts" setup>
-const navigationStore = useNavigationStore()
-navigationStore.updatePageTitle('Tableau de bord')
-</script>
-
 <template>
   <h1>Tableau de bord</h1>
   <p>
@@ -126,5 +121,10 @@ navigationStore.updatePageTitle('Tableau de bord')
     provident id rem quisquam, quasi nisi voluptates assumenda quibusdam!
   </p>
 </template>
+
+<script lang="ts" setup>
+const navigationStore = useNavigationStore()
+navigationStore.updatePageTitle('Tableau de bord')
+</script>
 
 <style></style>

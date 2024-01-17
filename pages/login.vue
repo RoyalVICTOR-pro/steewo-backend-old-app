@@ -1,42 +1,3 @@
-<script setup lang="ts">
-import type { FormSubmitEvent } from '#ui/types'
-import { z } from 'zod'
-const { t } = useI18n()
-const authStore = useAuthStore()
-const router = useRouter()
-const route = useRoute()
-
-const schema = z.object({
-  email: z
-    .string({ required_error: t('bo.forms.errors.required') })
-    .email('Invalid email'),
-  password: z
-    .string({ required_error: t('bo.forms.errors.required') })
-    .min(8, 'Must be at least 8 characters'),
-})
-
-type Schema = z.output<typeof schema>
-
-const state = reactive({
-  email: undefined,
-  password: undefined,
-})
-
-async function onSubmit(event: FormSubmitEvent<Schema>) {
-  if (state.email === undefined || state.password === undefined) return
-  if (await authStore.login(state.email, state.password)) {
-    let redirect = route.query.redirect
-    if (redirect) {
-      await router.push('/' + redirect)
-    } else {
-      await router.push('/')
-    }
-  } else {
-    console.log('erreur')
-  }
-}
-</script>
-
 <template>
   <UContainer class="flex items-center justify-center h-screen flex-col">
     <img src="~/assets/images/logo-steewo-color.svg" class="mb-12" />
@@ -68,5 +29,44 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   </UContainer>
   <div></div>
 </template>
+
+<script setup lang="ts">
+import type { FormSubmitEvent } from '#ui/types'
+import { z } from 'zod'
+const { t } = useI18n()
+const authStore = useAuthStore()
+const router = useRouter()
+const route = useRoute()
+
+const schema = z.object({
+  email: z
+    .string({ required_error: t('bo.forms.errors.required') })
+    .email(t('bo.forms.errors.invalidEmail')),
+  password: z
+    .string({ required_error: t('bo.forms.errors.required') })
+    .min(8, t('bo.forms.errors.passwordLength')),
+})
+
+type Schema = z.output<typeof schema>
+
+const state = reactive({
+  email: undefined,
+  password: undefined,
+})
+
+async function onSubmit(event: FormSubmitEvent<Schema>) {
+  if (state.email === undefined || state.password === undefined) return
+  if (await authStore.login(state.email, state.password)) {
+    let redirect = route.query.redirect
+    if (redirect) {
+      await router.push('/' + redirect)
+    } else {
+      await router.push('/')
+    }
+  } else {
+    console.log('erreur')
+  }
+}
+</script>
 
 <style scoped></style>
