@@ -33,25 +33,24 @@ export const useProfessionStore = defineStore('profession', () => {
       body: profession,
     })
 
-    if (status === 'success') {
-      professions.value.push(newProfession)
+    if (error.value) {
+      console.log('error.value.status :>> ', error.value.statusCode)
+      console.log('error.value.message :>> ', error.value.statusMessage)
+      console.log(
+        'error.value.data.message.errors[0].message :>> ',
+        error.value.data.message.errors[0].message
+      )
+      return false
+    }
+
+    if (newProfession.value) {
+      console.log('newProfession.value :>> ', newProfession.value)
       return true
     }
-    console.log('error dans addProfession du ProfessionStore :>> ', error.value)
-    console.log('error.status :>> ', error.statusCode)
-    console.log('error.message :>> ', error.statusMessage)
-    console.log('error.value.status :>> ', error.value.statusCode)
-    console.log('error.value.message :>> ', error.value.statusMessage)
-    console.log(
-      'error.value.data.message.errors.message :>> ',
-      error.value.data.message.errors.message
-    )
-    console.log(
-      'error.value.data.message.errors[0].message :>> ',
-      error.value.data.message.errors[0].message
-    )
-    console.log('error :>> ', error)
-    return false
+    /* if (status === 'success') {
+      professions.value.push(newProfession)
+      return true
+    } */
   }
 
   const updateProfession = async (profession: Profession) => {
