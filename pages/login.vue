@@ -27,7 +27,6 @@
       </UForm>
     </UCard>
   </UContainer>
-  <div></div>
 </template>
 
 <script setup lang="ts">
