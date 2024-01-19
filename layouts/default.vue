@@ -38,7 +38,9 @@ const navigationStore = useNavigationStore()
   <UContainer>
     <UPage class="lg:gap-0">
       <template #left>
-        <UAside class="h-screen lg:top-0 shadow-md lg:mx-0 lg:max-h-screen">
+        <UAside
+          class="h-screen lg:top-0 shadow-md lg:mx-0 lg:max-h-screen z-60"
+        >
           <img src="~/assets/images/logo-steewo-color.svg" class="mb-12" />
           <UNavigationTree :links="links" />
           <UDivider type="dashed" class="my-6" />

@@ -57,8 +57,8 @@ export default defineI18nConfig(() => ({
             },
           },
           errors: {
-            required: 'Ce champ est requis',
-            invalidEmail: "L'email est invalide",
+            required: 'Ce champ est requis.',
+            invalidEmail: "L'email est invalide.",
             passwordLength:
               'Le mot de passe doit contenir au moins 8 caractères',
           },
