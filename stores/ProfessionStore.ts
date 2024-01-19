@@ -2,20 +2,20 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 // import { useFetch } from '@vueuse/core'
 import type { Profession } from '@/types/Profession'
+import { ApiService } from '@/services/ApiService'
 
 export const useProfessionStore = defineStore('profession', () => {
   const professions = ref<Profession[]>([])
   const { $api } = useNuxtApp()
+  const { get, post } = useApi()
 
   const getProfessions = async () => {
-    const { data: fetchedProfessions } = await useFetch<Profession[]>(
-      $api('/professions'),
-      {
-        credentials: 'include',
-      }
-    )
-    professions.value = fetchedProfessions.value
-    return professions
+    try {
+      professions.value = await get('/professions')
+      return professions
+    } catch (error) {
+      console.log('error dans le try catch :>> ', error)
+    }
   }
 
   const getProfession = computed((id: number) => {
@@ -23,34 +23,13 @@ export const useProfessionStore = defineStore('profession', () => {
   })
 
   const addProfession = async (profession) => {
-    const {
-      data: newProfession,
-      status,
-      error,
-    } = await useFetch($api('/professions'), {
-      method: 'POST',
-      credentials: 'include',
-      body: profession,
-    })
-
-    if (error.value) {
-      console.log('error.value.status :>> ', error.value.statusCode)
-      console.log('error.value.message :>> ', error.value.statusMessage)
-      console.log(
-        'error.value.data.message.errors[0].message :>> ',
-        error.value.data.message.errors[0].message
-      )
-      return false
-    }
-
-    if (newProfession.value) {
-      console.log('newProfession.value :>> ', newProfession.value)
-      return true
-    }
-    /* if (status === 'success') {
+    try {
+      const newProfession = await post('/professions', profession)
       professions.value.push(newProfession)
       return true
-    } */
+    } catch (error) {
+      console.log('error dans le try catch :>> ', error)
+    }
   }
 
   const updateProfession = async (profession: Profession) => {

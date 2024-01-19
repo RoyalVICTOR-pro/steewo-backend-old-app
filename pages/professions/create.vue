@@ -50,11 +50,8 @@ const onSubmit = async () => {
     name: formState.name,
     is_enabled: formState.is_enabled,
   }
-  console.log('newProfession :>> ', newProfession)
   if (await professionStore.addProfession(newProfession)) {
     await navigateTo('/professions')
-  } else {
-    console.log('error')
   }
 }
 </script>

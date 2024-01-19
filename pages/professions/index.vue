@@ -52,7 +52,6 @@ const navigationStore = useNavigationStore()
 navigationStore.updatePageTitle(t('bo.pageTitles.professionsMain'))
 
 const professionStore = useProfessionStore()
-
 await professionStore.getProfessions()
 
 const columns = [
