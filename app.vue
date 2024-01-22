@@ -3,5 +3,6 @@
     <NuxtLayout class="h-full lg:gap-0 lg:px-0">
       <NuxtPage class="h-full" />
     </NuxtLayout>
+    <UNotifications />
   </div>
 </template>

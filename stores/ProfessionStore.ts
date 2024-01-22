@@ -8,13 +8,18 @@ export const useProfessionStore = defineStore('profession', () => {
   const professions = ref<Profession[]>([])
   const { $api } = useNuxtApp()
   const { get, post } = useApi()
+  const toast = useToast()
 
   const getProfessions = async () => {
     try {
       professions.value = await get('/professions')
       return professions
     } catch (error) {
-      console.log('error dans le try catch :>> ', error)
+      toast.add({
+        title: error.message,
+        icon: 'i-heroicons-x-circle',
+        color: 'red',
+      })
     }
   }
 
@@ -28,7 +33,11 @@ export const useProfessionStore = defineStore('profession', () => {
       professions.value.push(newProfession)
       return true
     } catch (error) {
-      console.log('error dans le try catch :>> ', error)
+      toast.add({
+        title: error.message,
+        icon: 'i-heroicons-x-circle',
+        color: 'red',
+      })
     }
   }
 
