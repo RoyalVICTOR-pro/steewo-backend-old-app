@@ -1,30 +1,25 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { useFetch } from '@vueuse/core'
 import { User } from '@/types/User'
 
 export const useAuthStore = defineStore('auth', () => {
   const { $api } = useNuxtApp()
   const user: User = ref({})
   const isLoggedIn = ref(false)
-  // const { get, post } = useApi()
 
   const login = async (email: string, password: string) => {
     try {
-      const fetchResponse = useFetch($api('/login'), {
+      const data = await $fetch($api('/login'), {
+        method: 'POST',
         credentials: 'include',
-      }).post({
-        email,
-        password,
+        body: {
+          email,
+          password,
+        },
       })
-      const { error, data } = await fetchResponse
-      if (data.value) {
-        const response = JSON.parse(data.value)
-        if (response.user) {
-          user.value = response.user
-          return true
-        }
-      }
+      console.log('data :>> ', data.user)
+      user.value = data.user
+      return true
     } catch (error) {
       console.log('error :>> ', error)
     }
@@ -32,19 +27,19 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const checkIfLoggedIn = async (route: string) => {
-    const fetchResponse = useFetch($api('/me'), {
-      credentials: 'include',
-    })
+    try {
+      const data = await $fetch($api('/me'), {
+        credentials: 'include',
+      })
 
-    const { error, data } = await fetchResponse
-
-    if (data.value) {
-      user.value = JSON.parse(data.value).user
+      user.value = data.user
       isLoggedIn.value = true
-    } else {
+      return isLoggedIn.value
+    } catch (error) {
       isLoggedIn.value = false
+      console.log('error :>> ', error)
+      return isLoggedIn.value
     }
-    return isLoggedIn.value
   }
 
   return {
