@@ -1,5 +1,4 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  const { $api } = useNuxtApp()
   const authStore = useAuthStore()
   const { isLoggedIn } = storeToRefs(authStore)
 
