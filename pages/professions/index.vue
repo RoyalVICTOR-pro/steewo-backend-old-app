@@ -59,16 +59,20 @@ const columns = [
     key: 'name',
     label: t('bo.tableHeaders.professions.name'),
     sortable: true,
+    class: 'w-full',
   },
   {
     key: 'is_enabled',
     label: t('bo.tableHeaders.professions.isActive'),
+    class: 'w-auto',
   },
   {
     key: 'services',
+    class: 'w-auto',
   },
   {
     key: 'actions',
+    class: 'w-auto',
   },
 ]
 </script>

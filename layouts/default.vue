@@ -35,24 +35,20 @@ const navigationStore = useNavigationStore()
 </script>
 
 <template>
-  <UContainer>
-    <UPage class="lg:gap-0">
-      <template #left>
-        <UAside
-          class="h-screen lg:top-0 shadow-md lg:mx-0 lg:max-h-screen z-60"
-        >
-          <img src="~/assets/images/logo-steewo-color.svg" class="mb-12" />
-          <UNavigationTree :links="links" />
-          <UDivider type="dashed" class="my-6" />
-          <UPageLinks :links="pageLinks" />
-        </UAside>
-      </template>
-      <UHeader class="shadow-sm" :title="navigationStore.pageTitle" />
-      <UContainer class="lg:py-4">
-        <slot />
-      </UContainer>
-    </UPage>
-  </UContainer>
+  <UPage class="lg:gap-0">
+    <template #left>
+      <UAside class="h-screen lg:top-0 shadow-md lg:mx-0 lg:max-h-screen z-60">
+        <ImageLogo class="mb-12" />
+        <UNavigationTree :links="links" />
+        <UDivider type="dashed" class="my-6" />
+        <UPageLinks :links="pageLinks" />
+      </UAside>
+    </template>
+    <UHeader class="shadow-sm" :title="navigationStore.pageTitle" />
+    <UContainer class="lg:py-4">
+      <slot />
+    </UContainer>
+  </UPage>
 </template>
 
 <style scoped>

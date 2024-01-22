@@ -1,6 +1,6 @@
 <template>
   <UContainer class="flex items-center justify-center h-screen flex-col">
-    <img src="~/assets/images/logo-steewo-color.svg" class="mb-12" />
+    <ImageLogo class="mb-12" />
 
     <UCard class="lg:w-1/2 w-full">
       <template #header>
