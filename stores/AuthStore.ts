@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-// import { useFetch } from '@vueuse/core'
+import { useFetch } from '@vueuse/core'
 import { User } from '@/types/User'
 
 export const useAuthStore = defineStore('auth', () => {
   const { $api } = useNuxtApp()
   const user: User = ref({})
   const isLoggedIn = ref(false)
-  const { get, post } = useApi()
+  // const { get, post } = useApi()
 
   const login = async (email: string, password: string) => {
     try {
