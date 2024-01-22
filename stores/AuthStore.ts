@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { useFetch } from '@vueuse/core'
+// import { useFetch } from '@vueuse/core'
 import { User } from '@/types/User'
 
 export const useAuthStore = defineStore('auth', () => {
   const { $api } = useNuxtApp()
   const user: User = ref({})
-  const askedRoute = ref('')
   const isLoggedIn = ref(false)
+  const { get, post } = useApi()
 
   const login = async (email: string, password: string) => {
     try {
@@ -42,7 +42,6 @@ export const useAuthStore = defineStore('auth', () => {
       user.value = JSON.parse(data.value).user
       isLoggedIn.value = true
     } else {
-      askedRoute.value = route
       isLoggedIn.value = false
     }
     return isLoggedIn.value
