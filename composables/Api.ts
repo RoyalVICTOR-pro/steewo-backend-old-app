@@ -25,22 +25,41 @@ export const useApi = () => {
   }
 
   const get = async (endpoint) => {
-    const { data, error } = await useFetch($api(endpoint), {
+    /* 
+    const { data, error } = await $fetch($api(endpoint), {
       credentials: 'include',
     })
     if (error.value) {
       handleApiErrors(error.value)
     }
+    */
+    try {
+      const data = await $fetch($api(endpoint), {
+        credentials: 'include',
+      })
+    } catch (error) {
+      handleApiErrors(error.value)
+    }
+
     return data.value
   }
 
   const post = async (endpoint, content = {}) => {
-    const { data, error } = await useFetch($api(endpoint), {
+    /*     const { data, error } = await $fetch($api(endpoint), {
       method: 'POST',
       credentials: 'include',
       body: content,
     })
     if (error.value) {
+      handleApiErrors(error.value)
+    } */
+    try {
+      const data = await $fetch($api(endpoint), {
+        method: 'POST',
+        credentials: 'include',
+        body: content,
+      })
+    } catch (error) {
       handleApiErrors(error.value)
     }
     return data.value
