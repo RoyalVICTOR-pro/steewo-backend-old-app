@@ -1,6 +1,9 @@
 export const useApi = () => {
-  const { $api } = useNuxtApp()
-  const { t } = useI18n()
+  const { $api, $i18n } = useNuxtApp()
+  // const { t } = useI18n()
+  // Comme il n'est pas possible d'utiliser useI18n() dans un middleware,
+  // on a récupèré la fonction t() de $i18n depuis useNuxtApp()
+  // https://github.com/nuxt-modules/i18n/issues/1831
 
   const handleApiErrors = (error) => {
     console.log(`Error ${error.statusCode} :>> ${error.statusMessage}`)
@@ -11,7 +14,8 @@ export const useApi = () => {
       case 422:
         throw new Error(error.data.message.errors[0].message)
       default:
-        throw new Error(t('bo.errors.internalServerError'))
+        throw new Error($i18n.t('bo.errors.internalServerError'))
+      // throw new Error('Une erreur est survenue. Merci de réessayer ultérieurement.')
     }
   }
 
