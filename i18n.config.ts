@@ -69,6 +69,17 @@ export default defineI18nConfig(() => ({
           internalServerError:
             'Une erreur est survenue. Veuillez actualiser la page ou essayer ultérieurement.',
         },
+        toasts: {
+          professionAdded: 'Le métier a bien été ajouté.',
+          professionUpdated: 'Le métier a bien été mis à jour.',
+          professionDeleted: 'Le métier a bien été supprimé.',
+          serviceAdded: 'Le service a bien été ajouté.',
+          serviceUpdated: 'Le service a bien été mis à jour.',
+          serviceDeleted: 'Le service a bien été supprimé.',
+          formFieldAdded: 'Le champ a bien été ajouté.',
+          formFieldUpdated: 'Le champ a bien été mis à jour.',
+          formFieldDeleted: 'Le champ a bien été supprimé.',
+        },
       },
     },
   },

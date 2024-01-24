@@ -30,11 +30,16 @@ export const useProfessionStore = defineStore('profession', () => {
     try {
       const newProfession = await post('/professions', profession)
       professions.value.push(newProfession)
+      toast.add({
+        title: t('bo.toasts.professionAdded'),
+        icon: 'i-heroicons-check-circle',
+        color: 'green',
+      })
       return true
     } catch (error) {
       toast.add({
         title: error.message,
-        icon: 'i-heroicons-x-circle',
+        icon: 'i-heroicons-exclamation-triangle',
         color: 'red',
       })
     }
