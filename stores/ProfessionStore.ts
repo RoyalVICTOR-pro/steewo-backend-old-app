@@ -8,6 +8,7 @@ export const useProfessionStore = defineStore('profession', () => {
   const { $api } = useNuxtApp()
   const { get, post } = useApi()
   const toast = useToast()
+  const { t } = useI18n()
 
   const getProfessions = async () => {
     try {
@@ -34,6 +35,7 @@ export const useProfessionStore = defineStore('profession', () => {
         title: t('bo.toasts.professionAdded'),
         icon: 'i-heroicons-check-circle',
         color: 'green',
+        timeout: 2000,
       })
       return true
     } catch (error) {
