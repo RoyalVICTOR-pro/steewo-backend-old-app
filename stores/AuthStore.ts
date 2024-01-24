@@ -6,6 +6,7 @@ export const useAuthStore = defineStore('auth', () => {
   const { $api } = useNuxtApp()
   const user: User = ref({})
   const isLoggedIn = ref(false)
+  const toast = useToast()
 
   const login = async (email: string, password: string) => {
     try {
@@ -38,6 +39,11 @@ export const useAuthStore = defineStore('auth', () => {
     } catch (error) {
       isLoggedIn.value = false
       console.log('error :>> ', error)
+      toast.add({
+        title: error.message,
+        icon: 'i-heroicons-exclamation-triangle',
+        color: 'red',
+      })
       return isLoggedIn.value
     }
   }
