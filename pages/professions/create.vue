@@ -14,7 +14,7 @@
         name="name"
         required
       >
-        <UInput v-model="formState.name" />
+        <UInput v-model="formState.name" autofocus />
       </UFormGroup>
       <UCheckbox
         v-model="formState.is_enabled"
