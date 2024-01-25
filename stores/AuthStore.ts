@@ -16,7 +16,6 @@ export const useAuthStore = defineStore('auth', () => {
       })
       if (response.user) {
         user.value = response.user
-        console.log('user.value :>> ', user.value)
         return true
       }
     } catch (error) {
@@ -31,16 +30,34 @@ export const useAuthStore = defineStore('auth', () => {
 
   const checkIfLoggedIn = async (route: string) => {
     try {
-      user.value = await get('/me')
+      user.value = await get('/me-as-admin')
       isLoggedIn.value = true
     } catch (error) {
-      console.log('Passage dans le catch de checkIfLoggedIn')
       isLoggedIn.value = false
+    }
+  }
+
+  const logout = async () => {
+    try {
+      await get('/logout').then((response) => {
+        user.value = {}
+        isLoggedIn.value = false
+        toast.add({
+          title: response,
+          icon: 'i-heroicons-check-circle',
+          color: 'green',
+          timeout: 3000,
+        })
+        return navigateTo('/login')
+      })
+    } catch (error) {
+      console.error(error.message)
     }
   }
 
   return {
     login,
+    logout,
     isLoggedIn,
     user,
     checkIfLoggedIn,

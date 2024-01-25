@@ -64,8 +64,6 @@ export default defineI18nConfig(() => ({
           },
         },
         errors: {
-          unauthorized: 'Vous devez être connecté pour accéder à cette page.',
-          notFound: "La page demandée n'existe pas.",
           internalServerError:
             'Une erreur est survenue. Veuillez actualiser la page ou essayer ultérieurement.',
         },

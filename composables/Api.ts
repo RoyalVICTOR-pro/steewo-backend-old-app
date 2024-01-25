@@ -6,16 +6,20 @@ export const useApi = () => {
   // https://github.com/nuxt-modules/i18n/issues/1831
 
   const handleApiErrors = (error) => {
-    console.log(`Error ${error.statusCode} :>> ${error.statusMessage}`)
     switch (error.statusCode) {
       case 401:
+        throw new Error(error.data)
+      case 403:
+        throw new Error(error.data)
       case 404:
-        throw new Error(error.statusMessage)
+        throw new Error(error.data)
       case 422:
-        throw new Error(error.data.message.errors[0].message)
+        throw new Error(error.data.errors[0].message)
+      case 429:
+        throw new Error(error.data)
       default:
+        // console.error(error.data)
         throw new Error($i18n.t('bo.errors.internalServerError'))
-      // throw new Error('Une erreur est survenue. Merci de réessayer ultérieurement.')
     }
   }
 

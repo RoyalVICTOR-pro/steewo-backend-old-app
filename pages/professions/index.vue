@@ -57,7 +57,9 @@ await professionStore.getProfessions()
 const columns = [
   {
     key: 'name',
-    label: t('bo.tableHeaders.professions.name'),
+    label:
+      t('bo.tableHeaders.professions.name') +
+      ` (${professionStore.professionsCount})`,
     sortable: true,
     class: 'w-full',
   },
