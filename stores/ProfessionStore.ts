@@ -9,6 +9,7 @@ export const useProfessionStore = defineStore('profession', () => {
   const { get, post } = useApi()
   const toast = useToast()
   const { t } = useI18n()
+  const professionsCount = computed(() => professions.value.length)
 
   const getProfessions = async () => {
     try {
@@ -76,6 +77,7 @@ export const useProfessionStore = defineStore('profession', () => {
 
   return {
     professions,
+    professionsCount,
     getProfessions,
     getProfession,
     addProfession,
