@@ -7,4 +7,4 @@ const navigationStore = useNavigationStore()
 navigationStore.updatePageTitle('Tableau de bord')
 </script>
 
-<style></style>
+<style scoped lang="scss"></style>

@@ -7,4 +7,4 @@
 // à partir d'un tableau de MenuItem qui vient du NavigationStore
 </script>
 
-<style></style>
+<style scoped lang="scss"></style>

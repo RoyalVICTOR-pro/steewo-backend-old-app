@@ -18,7 +18,7 @@
 const navigationStore = useNavigationStore()
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .header {
   @apply flex px-4 py-4 backdrop-blur border-b border-gray-200 dark:border-gray-800 -mb-px sticky top-0 z-20 shadow-sm;
 }

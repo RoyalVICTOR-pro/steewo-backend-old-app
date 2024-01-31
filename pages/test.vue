@@ -38,4 +38,4 @@ async function onSubmit(event: FormSubmitEvent<any>) {
   </UForm>
 </template>
 
-<style></style>
+<style scoped lang="scss"></style>

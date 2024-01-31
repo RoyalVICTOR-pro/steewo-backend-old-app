@@ -7,4 +7,4 @@ const authStore = useAuthStore()
 await authStore.logout()
 </script>
 
-<style></style>
+<style scoped lang="scss"></style>

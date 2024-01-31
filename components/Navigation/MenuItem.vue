@@ -9,4 +9,4 @@
 // Le composant gère aussi le clic sur le bouton pour changer la route dans le router
 </script>
 
-<style></style>
+<style scoped lang="scss"></style>

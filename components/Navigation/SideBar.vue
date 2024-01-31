@@ -42,7 +42,7 @@
 const navigationStore = useNavigationStore()
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .sidebar_container {
   @apply sticky top-0 overflow-hidden z-40 border-r border-gray-200 dark:border-gray-800 shadow-md;
 }
