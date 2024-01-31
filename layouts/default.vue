@@ -39,8 +39,6 @@ const navigationStore = useNavigationStore()
     <NavigationSideBar />
     <NavigationBackdrop v-if="navigationStore.mobileSidebarIsOpen" />
     <div class="flex flex-col flex-1">
-      <!-- <UHeader class="shadow-sm" :title="navigationStore.pageTitle" /> -->
-      <!-- <Header :title="navigationStore.pageTitle" /> -->
       <NavigationHeader :title="navigationStore.pageTitle" />
       <div class="flex-1 overflow-auto">
         <UContainer class="lg:py-4">
@@ -49,20 +47,6 @@ const navigationStore = useNavigationStore()
       </div>
     </div>
   </div>
-  <!-- <UPage class="lg:gap-0">
-    <template #left>
-      <UAside class="h-screen lg:top-0 shadow-md lg:mx-0 lg:max-h-screen z-60">
-        <ImageLogo class="mb-12" />
-        <UNavigationTree :links="links" />
-        <UDivider type="dashed" class="my-6" />
-        <UPageLinks :links="pageLinks" />
-      </UAside>
-    </template>
-    
-    <UContainer class="lg:py-4">
-      <slot />
-    </UContainer>
-  </UPage> -->
 </template>
 
 <style scoped>
