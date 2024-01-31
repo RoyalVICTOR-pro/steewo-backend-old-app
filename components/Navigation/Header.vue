@@ -10,12 +10,16 @@
         @click="navigationStore.toggleMobileSidebar()"
       />
     </div>
-    <h1 class="header_title">Titre de test</h1>
+    <h1 class="header_title">{{ props.title || t('bo.title') }}</h1>
   </div>
 </template>
 
 <script lang="ts" setup>
 const navigationStore = useNavigationStore()
+const { t } = useI18n()
+const props = defineProps({
+  title: String,
+})
 </script>
 
 <style scoped lang="scss">

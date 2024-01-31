@@ -21,7 +21,7 @@
           <UInput v-model="state.password" type="password" />
         </UFormGroup>
 
-        <UButton class="ml-auto" type="submit">
+        <UButton class="ml-auto bg-steewo-orange-500" type="submit">
           {{ $t('bo.forms.fields.connectButton') }}
         </UButton>
       </UForm>

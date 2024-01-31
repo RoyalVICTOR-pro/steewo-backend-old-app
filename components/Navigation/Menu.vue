@@ -1,10 +1,18 @@
 <template>
-  <div></div>
+  <ul>
+    <li v-for="item in navigationStore.mainMenuLinks" :key="item.id">
+      <NavigationMenuItem
+        :id="item.id"
+        :label="item.label"
+        :icon="item.icon"
+        :active="item.active"
+      />
+    </li>
+  </ul>
 </template>
 
 <script lang="ts" setup>
-// Le menu est un ensemble de MenuItem qui sont affichés les uns à la suite des autres
-// à partir d'un tableau de MenuItem qui vient du NavigationStore
+const navigationStore = useNavigationStore()
 </script>
 
 <style scoped lang="scss"></style>

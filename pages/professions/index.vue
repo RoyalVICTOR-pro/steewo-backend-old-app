@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <UButton class="ml-auto mt-12" color="primary" to="professions/create">
+    <UButton class="ml-auto mt-12 bg-steewo-orange-500" to="professions/create">
       {{ $t('bo.buttons.addProfession') }}
     </UButton>
     <UCard class="mt-4">
@@ -19,7 +19,12 @@
           />
         </template>
         <template #services-data="{ row }">
-          <UButton :to="`/test/${row.id}`" variant="outline" size="xs">
+          <UButton
+            :to="`/test/${row.id}`"
+            variant="outline"
+            size="xs"
+            class="border-steewo-orange-500 text-steewo-orange-500"
+          >
             {{ $t('bo.buttons.manageServices') }}
           </UButton>
         </template>
@@ -50,6 +55,7 @@
 const { t } = useI18n()
 const navigationStore = useNavigationStore()
 navigationStore.updatePageTitle(t('bo.pageTitles.professionsMain'))
+navigationStore.setMainMenuActiveLink('professions')
 
 const professionStore = useProfessionStore()
 await professionStore.getProfessions()

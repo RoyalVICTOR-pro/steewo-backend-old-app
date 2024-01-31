@@ -41,7 +41,7 @@ const navigationStore = useNavigationStore()
     <div class="flex flex-col flex-1">
       <!-- <UHeader class="shadow-sm" :title="navigationStore.pageTitle" /> -->
       <!-- <Header :title="navigationStore.pageTitle" /> -->
-      <NavigationHeader />
+      <NavigationHeader :title="navigationStore.pageTitle" />
       <div class="flex-1 overflow-auto">
         <UContainer class="lg:py-4">
           <slot />

@@ -1,5 +1,9 @@
 <template>
-  <UButton class="mt-2" color="primary" to="/professions">
+  <UButton
+    class="mt-2 border-2 bg-gray-400 text-white font-light"
+    to="/professions"
+    icon="i-heroicons-chevron-left"
+  >
     {{ $t('bo.buttons.back') }}
   </UButton>
   <UCard class="mt-4">
@@ -38,6 +42,7 @@ const professionStore = useProfessionStore()
 
 const navigationStore = useNavigationStore()
 navigationStore.updatePageTitle(t('bo.pageTitles.professionsAdd'))
+navigationStore.setMainMenuActiveLink('professions')
 
 const formState = reactive({
   name: undefined,

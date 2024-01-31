@@ -4,7 +4,7 @@ export default defineAppConfig({
     gray: 'cool',
     colors: ['steewo-orange', 'steewo-yellow', 'steewo-violet'],
     notifications: {
-      position: 'top-0 bottom-auto',
+      position: 'top-0 bottom-auto left-0',
     },
   },
 })
