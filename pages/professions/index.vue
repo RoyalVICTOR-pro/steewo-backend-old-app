@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <UButton class="ml-auto mt-24" color="primary" to="professions/create">
+    <UButton class="ml-auto mt-12" color="primary" to="professions/create">
       {{ $t('bo.buttons.addProfession') }}
     </UButton>
     <UCard class="mt-4">
