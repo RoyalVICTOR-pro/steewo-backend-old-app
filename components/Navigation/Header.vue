@@ -28,7 +28,7 @@ const props = defineProps({
 }
 
 .header_title {
-  @apply flex pl-2 pb-1 items-center font-bold text-xl text-gray-900 dark:text-white;
+  @apply flex pl-2 pb-1 items-center text-xl text-gray-900 dark:text-white;
 }
 
 @media (min-width: 1280px) {

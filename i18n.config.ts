@@ -6,7 +6,7 @@ export default defineI18nConfig(() => ({
   messages: {
     fr: {
       bo: {
-        title: "Espace d'adminstration",
+        title: "Espace d'administration",
         navigation: {
           dashboard: 'Tableau de bord',
           professions: 'Métiers',

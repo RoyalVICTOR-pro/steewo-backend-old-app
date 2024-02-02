@@ -2,13 +2,24 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
-  extends: ['@nuxt/ui-pro'],
+  css: ['~/assets/scss/main.scss'],
   modules: [
     '@nuxt/ui',
     '@pinia/nuxt',
     '@vueuse/nuxt',
     '@nuxt/image',
     '@nuxtjs/i18n',
+    [
+      '@nuxtjs/google-fonts',
+      {
+        families: {
+          Prompt: [300, 400, 500, 600, 700],
+          'DM Sans': true,
+          download: true,
+          inject: true,
+        },
+      },
+    ],
   ],
   i18n: {
     vueI18n: './i18n.config.ts',
