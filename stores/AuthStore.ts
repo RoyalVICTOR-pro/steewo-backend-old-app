@@ -6,7 +6,7 @@ export const useAuthStore = defineStore('auth', () => {
   const user: User = ref({})
   const isLoggedIn = ref(false)
   const { get, post } = useApi()
-  const toast = useToast()
+  const { toastSuccess, toastError } = useCustomToast()
 
   const login = async (email: string, password: string) => {
     try {
@@ -19,11 +19,7 @@ export const useAuthStore = defineStore('auth', () => {
         return true
       }
     } catch (error) {
-      toast.add({
-        title: error.message,
-        icon: 'i-heroicons-x-circle',
-        color: 'red',
-      })
+      toastError(error.message)
       return false
     }
   }
@@ -42,12 +38,7 @@ export const useAuthStore = defineStore('auth', () => {
       await get('/logout').then((response) => {
         user.value = {}
         isLoggedIn.value = false
-        toast.add({
-          title: response,
-          icon: 'i-heroicons-check-circle',
-          color: 'green',
-          timeout: 3000,
-        })
+        toastSuccess(response)
         return navigateTo('/login')
       })
     } catch (error) {

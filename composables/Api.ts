@@ -47,5 +47,32 @@ export const useApi = () => {
     }
   }
 
-  return { get, post }
+  const update = async (endpoint, content = {}) => {
+    try {
+      const data = await $fetch($api(endpoint), {
+        method: 'PUT',
+        credentials: 'include',
+        body: content,
+      })
+      return data
+    } catch (error) {
+      return handleApiErrors(error)
+    }
+  }
+
+  const del = async (endpoint) => {
+    try {
+      console.log('ici')
+      const data = await $fetch($api(endpoint), {
+        method: 'DELETE',
+        credentials: 'include',
+      })
+      return data
+    } catch (error) {
+      console.log(error)
+      return handleApiErrors(error)
+    }
+  }
+
+  return { get, post, update, del }
 }

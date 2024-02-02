@@ -30,7 +30,7 @@
         </template>
         <template #actions-data="{ row }">
           <UButton
-            :to="`/test/${row.id}`"
+            :to="`/professions/${row.id}`"
             icon="i-heroicons-pencil-square"
             size="sm"
             color="gray"
@@ -38,7 +38,7 @@
             variant="ghost"
           />
           <UButton
-            :to="`/test/${row.id}`"
+            @click="professionStore.deleteProfession(row.id)"
             icon="i-heroicons-trash"
             size="sm"
             color="gray"
