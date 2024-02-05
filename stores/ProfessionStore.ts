@@ -7,7 +7,7 @@ import type { Profession } from '@/types/Profession'
 export const useProfessionStore = defineStore('profession', () => {
   const professions = ref<Profession[]>([])
   const { $api } = useNuxtApp()
-  const { get, post, update, del } = useApi()
+  const { get, post, update, patch, del } = useApi()
   const { t } = useI18n()
   const { toastSuccess, toastError } = useCustomToast()
   const professionsCount = computed(() => professions.value.length)
@@ -54,6 +54,21 @@ export const useProfessionStore = defineStore('profession', () => {
     }
   }
 
+  const toggleProfessionStatus = async (id: Number, is_enabled: Boolean) => {
+    try {
+      const isEnabledNewValue = !is_enabled
+      const updatedProfession = await patch(`/professions/${id}`, {
+        is_enabled: isEnabledNewValue,
+      })
+      professions.value = professions.value.map((p) =>
+        p.id === id ? { ...p, is_enabled: isEnabledNewValue } : p
+      )
+      return true
+    } catch (error) {
+      toastError(error.message)
+    }
+  }
+
   const deleteProfession = async (id: Number) => {
     try {
       await del(`/professions/${id}`)
@@ -72,6 +87,7 @@ export const useProfessionStore = defineStore('profession', () => {
     getProfessionById,
     addProfession,
     updateProfession,
+    toggleProfessionStatus,
     deleteProfession,
   }
 })

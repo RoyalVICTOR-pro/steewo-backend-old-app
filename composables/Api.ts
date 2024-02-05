@@ -60,6 +60,19 @@ export const useApi = () => {
     }
   }
 
+  const patch = async (endpoint, content = {}) => {
+    try {
+      const data = await $fetch($api(endpoint), {
+        method: 'PATCH',
+        credentials: 'include',
+        body: content,
+      })
+      return data
+    } catch (error) {
+      return handleApiErrors(error)
+    }
+  }
+
   const del = async (endpoint) => {
     try {
       console.log('ici')
@@ -74,5 +87,5 @@ export const useApi = () => {
     }
   }
 
-  return { get, post, update, del }
+  return { get, post, update, patch, del }
 }

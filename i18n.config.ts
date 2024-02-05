@@ -17,14 +17,14 @@ export default defineI18nConfig(() => ({
           professionsMain: 'Métiers',
           professionsAdd: 'Ajouter un métier',
           professionsEdit: 'Modifier le métier',
-          servicesMain: 'Services du métier {{professionName}}',
-          servicesAdd: 'Ajouter un service au métier {{professionName}}',
+          servicesMain: 'Services du métier ',
+          servicesAdd: 'Ajouter un service au métier {professionName}',
           servicesEdit:
-            'Modifier le service {{serviceName}} du métier {{professionName}}',
-          formFieldsMain: 'Champs du service {{serviceName}}',
-          formFieldsAdd: 'Ajouter un champ au service {{serviceName}}',
+            'Modifier le service {serviceName} du métier {professionName}',
+          formFieldsMain: 'Champs du service {serviceName}',
+          formFieldsAdd: 'Ajouter un champ au service {serviceName}',
           formFieldsEdit:
-            'Modifier le champ {{fieldName}} du service {{serviceName}}',
+            'Modifier le champ {{fieldName}} du service {serviceName}',
         },
         buttons: {
           addProfession: 'Ajouter un métier',
@@ -47,6 +47,10 @@ export default defineI18nConfig(() => ({
             name: 'Métier',
             isActive: 'Actif',
           },
+          services: {
+            name: 'Service',
+            isActive: 'Actif',
+          },
         },
         forms: {
           fields: {
@@ -57,6 +61,11 @@ export default defineI18nConfig(() => ({
             connectButton: 'Se connecter',
             professions: {
               name: 'Nom du métier',
+              is_enabled: 'Actif',
+            },
+            services: {
+              name: 'Nom complet du service',
+              short_name: 'Nom court du service',
               is_enabled: 'Actif',
             },
           },
