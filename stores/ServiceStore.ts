@@ -1,4 +1,3 @@
-import { Service } from './../types/Service'
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 // import { useFetch } from '@vueuse/core'
