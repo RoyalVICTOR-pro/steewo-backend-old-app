@@ -83,7 +83,6 @@ onMounted(async () => {
     route.params.id_profession
   )
 
-  // Mettez à jour le formulaire avec les données de la service existante
   if (service === undefined)
     return await navigateTo(
       '/professions/' + route.params.id_profession + '/services'

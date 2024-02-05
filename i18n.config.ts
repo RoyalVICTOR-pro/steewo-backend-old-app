@@ -24,7 +24,7 @@ export default defineI18nConfig(() => ({
           formFieldsMain: 'Champs du service {serviceName}',
           formFieldsAdd: 'Ajouter un champ au service {serviceName}',
           formFieldsEdit:
-            'Modifier le champ {{fieldName}} du service {serviceName}',
+            'Modifier le champ {fieldName} du service {serviceName}',
         },
         buttons: {
           addProfession: 'Ajouter un métier',
@@ -51,6 +51,10 @@ export default defineI18nConfig(() => ({
             name: 'Service',
             isActive: 'Actif',
           },
+          formFields: {
+            label: 'Libellé',
+            type: 'Type',
+          },
         },
         forms: {
           fields: {
@@ -67,6 +71,15 @@ export default defineI18nConfig(() => ({
               name: 'Nom complet du service',
               short_name: 'Nom court du service',
               is_enabled: 'Actif',
+            },
+            formFields: {
+              type: 'Type',
+              label: 'Libellé',
+              mandatory: 'Obligatoire',
+              tooltip_image_file: "Image d'aide",
+              tooltip_text: "Texte d'aide",
+              description: 'Description',
+              placeholder: 'Placeholder',
             },
           },
           errors: {

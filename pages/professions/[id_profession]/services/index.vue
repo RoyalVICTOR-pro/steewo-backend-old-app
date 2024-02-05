@@ -36,7 +36,7 @@
         </template>
         <template #services-data="{ row }">
           <UButton
-            :to="`/services/${row.id}/form-fields`"
+            :to="`/professions/${route.params.id_profession}/services/${row.id}/form-fields`"
             variant="outline"
             size="xs"
             class="border-steewo-orange-500 text-steewo-orange-500"

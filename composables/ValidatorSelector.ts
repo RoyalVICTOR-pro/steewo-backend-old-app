@@ -13,8 +13,15 @@ export const useValidatorSelector = () => {
     is_enabled: z.boolean({ required_error: t('bo.forms.errors.required') }),
   }
 
+  const formFieldSchema = {
+    type: z.string({ required_error: t('bo.forms.errors.required') }),
+    label: z.string({ required_error: t('bo.forms.errors.required') }),
+    mandatory: z.boolean({ required_error: t('bo.forms.errors.required') }),
+  }
+
   return {
     professionSchema,
     serviceSchema,
+    formFieldSchema,
   }
 }
