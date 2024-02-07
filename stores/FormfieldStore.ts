@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 // import { useFetch } from '@vueuse/core'
 import type { FormField } from '@/types/FormField'
+import type { FormFieldOrder } from '@/types/FormFieldOrder'
 
 export const useFormFieldStore = defineStore('formfield', () => {
   const formFields = ref<FormField[]>([])
@@ -59,6 +60,21 @@ export const useFormFieldStore = defineStore('formfield', () => {
     }
   }
 
+  const updateFormFieldsOrder = async (
+    formFields: FormFieldOrder[],
+    id_service
+  ) => {
+    try {
+      await patch(`/services/${id_service}/form-fields/order`, {
+        formFields: formFields,
+      })
+      toastSuccess(t('bo.toasts.formFieldsReordered'))
+      return getFormFields(id_service)
+    } catch (error) {
+      toastError(error.message)
+    }
+  }
+
   const deleteFormField = async (id: Number, id_service) => {
     try {
       await del(`/services/${id_service}/form-fields/${id}`)
@@ -77,6 +93,7 @@ export const useFormFieldStore = defineStore('formfield', () => {
     getFormFieldById,
     addFormField,
     updateFormField,
+    updateFormFieldsOrder,
     deleteFormField,
   }
 })

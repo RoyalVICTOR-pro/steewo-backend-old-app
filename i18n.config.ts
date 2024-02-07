@@ -25,6 +25,7 @@ export default defineI18nConfig(() => ({
           formFieldsAdd: 'Ajouter un champ au service "{serviceName}"',
           formFieldsEdit:
             'Modifier le champ "{fieldName}" du service "{serviceName}"',
+          formFieldsReorder: 'Réordonner les champs de ce service',
         },
         buttons: {
           addProfession: 'Ajouter un métier',
@@ -41,6 +42,7 @@ export default defineI18nConfig(() => ({
           cancel: 'Annuler',
           save: 'Enregistrer',
           back: 'Retour',
+          reorder: 'Réordonner',
         },
         tableHeaders: {
           professions: {
@@ -103,6 +105,7 @@ export default defineI18nConfig(() => ({
           formFieldAdded: 'Le champ a bien été ajouté.',
           formFieldUpdated: 'Le champ a bien été mis à jour.',
           formFieldDeleted: 'Le champ a bien été supprimé.',
+          formFieldsReordered: 'Les champs ont bien été réordonnés.',
           loggedOut: 'Vous avez été déconnecté avec succès.',
         },
       },
