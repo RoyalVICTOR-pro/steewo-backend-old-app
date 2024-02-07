@@ -55,6 +55,21 @@ const route = useRoute()
 const formFieldStore = useFormFieldStore()
 await formFieldStore.getFormFields(route.params.id_service)
 
+const serviceStore = useServiceStore()
+const service = await serviceStore.getCurrentService(
+  route.params.id_service,
+  route.params.id_profession
+)
+if (service !== undefined && service !== null) {
+  navigationStore.updatePageTitle(
+    t('bo.pageTitles.formFieldsMain', {
+      serviceName: service.name,
+    })
+  )
+} else {
+  await navigateTo('/professions/' + route.params.id_profession + '/services')
+}
+
 const getTypeLabelByValue = (value: string) => {
   const type = FormFieldsTypesForSelect.find((type) => type.value === value)
   return type ? type.label : ''

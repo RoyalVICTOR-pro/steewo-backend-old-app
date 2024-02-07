@@ -72,12 +72,25 @@
 <script lang="ts" setup>
 const { t } = useI18n()
 const navigationStore = useNavigationStore()
-navigationStore.updatePageTitle(t('bo.pageTitles.servicesMain'))
 navigationStore.setMainMenuActiveLink('professions')
 
 const route = useRoute()
 const serviceStore = useServiceStore()
 await serviceStore.getServices(route.params.id_profession)
+
+const professionStore = useProfessionStore()
+const profession = await professionStore.getCurrentProfession(
+  route.params.id_profession
+)
+if (profession !== undefined && profession !== null) {
+  navigationStore.updatePageTitle(
+    t('bo.pageTitles.servicesMain', {
+      professionName: profession.name,
+    })
+  )
+} else {
+  await navigateTo('/professions')
+}
 
 const columns = [
   {

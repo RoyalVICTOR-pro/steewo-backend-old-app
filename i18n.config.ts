@@ -16,15 +16,15 @@ export default defineI18nConfig(() => ({
         pageTitles: {
           professionsMain: 'Métiers',
           professionsAdd: 'Ajouter un métier',
-          professionsEdit: 'Modifier le métier',
-          servicesMain: 'Services du métier ',
-          servicesAdd: 'Ajouter un service au métier {professionName}',
+          professionsEdit: 'Modifier le métier "{professionName}"',
+          servicesMain: 'Services du métier "{professionName}"',
+          servicesAdd: 'Ajouter un service au métier "{professionName}"',
           servicesEdit:
-            'Modifier le service {serviceName} du métier {professionName}',
-          formFieldsMain: 'Champs du service {serviceName}',
-          formFieldsAdd: 'Ajouter un champ au service {serviceName}',
+            'Modifier le service "{serviceName}" du métier "{professionName}"',
+          formFieldsMain: 'Champs du service "{serviceName}"',
+          formFieldsAdd: 'Ajouter un champ au service "{serviceName}"',
           formFieldsEdit:
-            'Modifier le champ {fieldName} du service {serviceName}',
+            'Modifier le champ "{fieldName}" du service "{serviceName}"',
         },
         buttons: {
           addProfession: 'Ajouter un métier',

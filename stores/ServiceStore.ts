@@ -10,6 +10,7 @@ export const useServiceStore = defineStore('service', () => {
   const { t } = useI18n()
   const { toastSuccess, toastError } = useCustomToast()
   const servicesCount = computed(() => services.value.length)
+  const currentService = ref<Service | null>(null)
 
   const getServices = async (id_profession) => {
     try {
@@ -25,7 +26,18 @@ export const useServiceStore = defineStore('service', () => {
       const service: Service = await get(
         '/professions/' + id_profession + '/services/' + id.toString()
       )
+      currentService.value = service
       return service
+    } catch (error) {
+      toastError(error.message)
+    }
+  }
+
+  const getCurrentService = async (id, id_profession) => {
+    if (currentService.value) return currentService.value
+    try {
+      currentService.value = await getServiceById(id, id_profession)
+      return currentService.value
     } catch (error) {
       toastError(error.message)
     }
@@ -52,6 +64,7 @@ export const useServiceStore = defineStore('service', () => {
         `/professions/${service.profession_id}/services/${service.id}`,
         service
       )
+      currentService.value = updatedService
       toastSuccess(t('bo.toasts.serviceUpdated'))
       return true
     } catch (error) {
@@ -98,6 +111,7 @@ export const useServiceStore = defineStore('service', () => {
     servicesCount,
     getServices,
     getServiceById,
+    getCurrentService,
     addService,
     updateService,
     toggleServiceStatus,

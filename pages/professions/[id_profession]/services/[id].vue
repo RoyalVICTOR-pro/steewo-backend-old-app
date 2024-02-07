@@ -47,13 +47,11 @@ const { t } = useI18n()
 const { serviceSchema } = useValidatorSelector()
 const { schema, isValid } = useFormValidator(serviceSchema)
 const route = useRoute()
-const professionName = ref('Test')
-const serviceName = ref('Toto')
 
+const professionStore = useProfessionStore()
 const serviceStore = useServiceStore()
 
 const navigationStore = useNavigationStore()
-navigationStore.updatePageTitle(t('bo.pageTitles.servicesEdit'))
 navigationStore.setMainMenuActiveLink('professions')
 
 const formState = reactive({
@@ -78,18 +76,27 @@ const onSubmit = async () => {
   }
 }
 onMounted(async () => {
+  const profession = await professionStore.getCurrentProfession(
+    route.params.id_profession
+  )
   const service = await serviceStore.getServiceById(
     serviceId,
     route.params.id_profession
   )
 
-  if (service === undefined)
+  if (service === undefined || profession === undefined || profession === null)
     return await navigateTo(
       '/professions/' + route.params.id_profession + '/services'
     )
   formState.name = service.name
   formState.short_name = service.short_name
   formState.is_enabled = service.is_enabled === 1 ? true : false
+  navigationStore.updatePageTitle(
+    t('bo.pageTitles.servicesEdit', {
+      professionName: profession.name,
+      serviceName: service.name,
+    })
+  )
 })
 </script>
 

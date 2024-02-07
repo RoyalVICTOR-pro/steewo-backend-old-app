@@ -44,7 +44,6 @@ const route = useRoute()
 const professionStore = useProfessionStore()
 
 const navigationStore = useNavigationStore()
-navigationStore.updatePageTitle(t('bo.pageTitles.professionsEdit'))
 navigationStore.setMainMenuActiveLink('professions')
 
 const formState = reactive({
@@ -72,6 +71,9 @@ onMounted(async () => {
   if (profession === undefined) return await navigateTo('/professions')
   formState.name = profession.name
   formState.is_enabled = profession.is_enabled === 1 ? true : false
+  navigationStore.updatePageTitle(
+    t('bo.pageTitles.professionsEdit', { professionName: profession.name })
+  )
 })
 </script>
 

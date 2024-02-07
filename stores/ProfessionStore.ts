@@ -11,6 +11,7 @@ export const useProfessionStore = defineStore('profession', () => {
   const { t } = useI18n()
   const { toastSuccess, toastError } = useCustomToast()
   const professionsCount = computed(() => professions.value.length)
+  const currentProfession = ref<Profession | null>(null)
 
   const getProfessions = async () => {
     try {
@@ -24,7 +25,18 @@ export const useProfessionStore = defineStore('profession', () => {
   const getProfessionById = async (id) => {
     try {
       const profession: Profession = await get('/professions/' + id.toString())
+      currentProfession.value = profession
       return profession
+    } catch (error) {
+      toastError(error.message)
+    }
+  }
+
+  const getCurrentProfession = async (id) => {
+    if (currentProfession.value) return currentProfession.value
+    try {
+      currentProfession.value = await getProfessionById(id)
+      return currentProfession.value
     } catch (error) {
       toastError(error.message)
     }
@@ -47,6 +59,7 @@ export const useProfessionStore = defineStore('profession', () => {
         `/professions/${profession.id}`,
         profession
       )
+      currentProfession.value = updatedProfession
       toastSuccess(t('bo.toasts.professionUpdated'))
       return true
     } catch (error) {
@@ -85,6 +98,7 @@ export const useProfessionStore = defineStore('profession', () => {
     professionsCount,
     getProfessions,
     getProfessionById,
+    getCurrentProfession,
     addProfession,
     updateProfession,
     toggleProfessionStatus,
