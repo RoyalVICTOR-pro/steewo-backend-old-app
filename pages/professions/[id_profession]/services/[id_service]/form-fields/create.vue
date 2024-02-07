@@ -25,7 +25,7 @@
         name="type"
         required
       >
-        <UInput v-model="formState.type" />
+        <USelect v-model="formState.type" :options="FormFieldsTypesForSelect" />
       </UFormGroup>
       <UCheckbox
         v-model="formState.mandatory"
@@ -59,6 +59,8 @@
 </template>
 
 <script setup lang="ts">
+import FormFieldsTypesForSelect from '~/enums/FormFieldsTypes'
+
 const { t } = useI18n()
 const { formFieldSchema } = useValidatorSelector()
 const { schema, isValid } = useFormValidator(formFieldSchema)

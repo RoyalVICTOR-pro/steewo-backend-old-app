@@ -15,6 +15,9 @@
     </UButton>
     <UCard class="mt-4">
       <UTable :rows="formFieldStore.formFields" :columns="columns">
+        <template #type-data="{ row }">
+          {{ getTypeLabelByValue(row.type) }}
+        </template>
         <template #actions-data="{ row }">
           <UButton
             :to="`/professions/${route.params.id_profession}/services/${route.params.id_service}/form-fields/${row.id}`"
@@ -41,6 +44,8 @@
 </template>
 
 <script lang="ts" setup>
+import FormFieldsTypesForSelect from '~/enums/FormFieldsTypes'
+
 const { t } = useI18n()
 const navigationStore = useNavigationStore()
 navigationStore.updatePageTitle(t('bo.pageTitles.formFieldsMain'))
@@ -49,6 +54,11 @@ navigationStore.setMainMenuActiveLink('professions')
 const route = useRoute()
 const formFieldStore = useFormFieldStore()
 await formFieldStore.getFormFields(route.params.id_service)
+
+const getTypeLabelByValue = (value: string) => {
+  const type = FormFieldsTypesForSelect.find((type) => type.value === value)
+  return type ? type.label : ''
+}
 
 const columns = [
   {

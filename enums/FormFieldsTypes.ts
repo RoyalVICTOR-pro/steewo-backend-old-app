@@ -1,3 +1,4 @@
+import { FormField } from './../types/FormField'
 enum FormFieldsTypes {
   TEXT = 'text',
   TEXTAREA = 'textarea',
@@ -8,4 +9,14 @@ enum FormFieldsTypes {
   VIDEO_FILE = 'video_file',
 }
 
-export default FormFieldsTypes
+const FormFieldsTypesForSelect = [
+  { label: 'Champ texte simple', value: FormFieldsTypes.TEXT },
+  { label: 'Champ texte multiligne', value: FormFieldsTypes.TEXTAREA },
+  { label: 'Case à cocher', value: FormFieldsTypes.CHECKBOX },
+  { label: 'Lien web', value: FormFieldsTypes.LINK },
+  { label: 'Image', value: FormFieldsTypes.IMAGE_FILE },
+  { label: 'Document', value: FormFieldsTypes.DOCUMENT_FILE },
+  { label: 'Vidéo', value: FormFieldsTypes.VIDEO_FILE },
+]
+
+export default FormFieldsTypesForSelect
