@@ -20,6 +20,12 @@
       >
         <UInput v-model="formState.name" autofocus />
       </UFormGroup>
+      <UFormGroup
+        :label="$t('bo.forms.fields.professions.picto_file')"
+        name="picto_file"
+      >
+        <UInput type="file" @change="onFileChange" />
+      </UFormGroup>
       <UCheckbox
         v-model="formState.is_enabled"
         :label="$t('bo.forms.fields.professions.is_enabled')"
@@ -47,14 +53,25 @@ navigationStore.setMainMenuActiveLink('professions')
 const formState = reactive({
   name: undefined,
   is_enabled: false,
+  picto_file: undefined as File | undefined,
 })
+
+const onFileChange = (event: Event) => {
+  const file = (event.target as HTMLInputElement).files?.[0]
+  console.log('file :>> ', file)
+  formState.picto_file = file
+}
 
 const onSubmit = async () => {
   if (!isValid(formState)) return
-  const newProfession = {
-    name: formState.name,
-    is_enabled: formState.is_enabled,
+
+  const newProfession = new FormData()
+  newProfession.append('name', formState.name ?? '')
+  newProfession.append('is_enabled', formState.is_enabled.toString())
+  if (formState.picto_file) {
+    newProfession.append('picto_file', formState.picto_file)
   }
+
   if (await professionStore.addProfession(newProfession)) {
     await navigateTo('/professions')
   }

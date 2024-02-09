@@ -67,6 +67,7 @@ export default defineI18nConfig(() => ({
             connectButton: 'Se connecter',
             professions: {
               name: 'Nom du métier',
+              picto_file: 'Picto du métier',
               is_enabled: 'Actif',
             },
             services: {
