@@ -68,10 +68,13 @@ export default defineI18nConfig(() => ({
             professions: {
               name: 'Nom du métier',
               picto_file: 'Picto du métier',
+              image_file: 'Image du métier',
               is_enabled: 'Actif',
             },
             services: {
               name: 'Nom complet du service',
+              picto_file: 'Picto du métier',
+              image_file: 'Image du métier',
               short_name: 'Nom court du service',
               is_enabled: 'Actif',
             },
