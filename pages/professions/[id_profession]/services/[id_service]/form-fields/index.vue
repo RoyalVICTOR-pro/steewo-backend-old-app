@@ -7,17 +7,18 @@
     {{ $t('bo.buttons.back') }}
   </UButton>
   <div class="flex flex-col">
-    <div class="flex justify-between">
-      <ReorderModal
-        :formFieldsList="formFieldStore.formFields"
-        @new-order="updateNewOrder"
-      />
+    <div class="flex justify-between flex-row-reverse">
       <UButton
-        class="mt-12 bg-steewo-orange-500"
+        class="mt-12 bg-steewo-orange-500 justify-end"
         :to="`/professions/${route.params.id_profession}/services/${route.params.id_service}/form-fields/create`"
       >
         {{ $t('bo.buttons.addFormField') }}
       </UButton>
+      <ReorderModal
+        v-if="formFieldStore.formFields.length > 1"
+        :formFieldsList="formFieldStore.formFields"
+        @new-order="updateNewOrder"
+      />
     </div>
     <UCard class="mt-4">
       <UTable :rows="formFieldStore.formFields" :columns="columns">
