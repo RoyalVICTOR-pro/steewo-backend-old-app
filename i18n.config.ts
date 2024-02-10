@@ -36,12 +36,14 @@ export default defineI18nConfig(() => ({
           editFormField: 'Modifier ce champ',
           manageServices: 'Gérer les services',
           manageFormFields: 'Gérer les champs',
+          seeFile: 'Voir le fichier',
           add: 'Ajouter',
           edit: 'Modifier',
           delete: 'Supprimer',
           cancel: 'Annuler',
           save: 'Enregistrer',
           back: 'Retour',
+          confirm: 'Confirmer',
           reorder: 'Réordonner',
         },
         tableHeaders: {
@@ -102,6 +104,8 @@ export default defineI18nConfig(() => ({
         toasts: {
           professionAdded: 'Le métier a bien été ajouté.',
           professionUpdated: 'Le métier a bien été mis à jour.',
+          professionPictoDeleted: 'Le picto du métier a bien été supprimé.',
+          professionImageDeleted: "L'image du métier a bien été supprimée.",
           professionDeleted: 'Le métier a bien été supprimé.',
           serviceAdded: 'Le service a bien été ajouté.',
           serviceUpdated: 'Le service a bien été mis à jour.',

@@ -39,6 +39,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       api: '',
+      files: '',
     },
   },
 })
