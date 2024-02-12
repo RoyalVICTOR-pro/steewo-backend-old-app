@@ -20,26 +20,16 @@
       >
         <UInput v-model="formState.name" autofocus />
       </UFormGroup>
-      <UFormGroup
+      <FileUploadInput
+        fieldName="picto_file"
         :label="$t('bo.forms.fields.professions.picto_file')"
-        name="picto_file"
-      >
-        <UInput
-          type="file"
-          @change="onPictoFileChange"
-          inputClass="custom_input"
-        />
-      </UFormGroup>
-      <UFormGroup
+        v-model:file="formState.picto_file"
+      />
+      <FileUploadInput
+        fieldName="image_file"
         :label="$t('bo.forms.fields.professions.image_file')"
-        name="image_file"
-      >
-        <UInput
-          type="file"
-          @change="onImageFileChange"
-          inputClass="custom_input"
-        />
-      </UFormGroup>
+        v-model:file="formState.image_file"
+      />
       <UCheckbox
         v-model="formState.is_enabled"
         :label="$t('bo.forms.fields.professions.is_enabled')"
