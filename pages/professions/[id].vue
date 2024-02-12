@@ -30,7 +30,10 @@
           inputClass="custom_input"
         />
         <div class="flex">
-          <UPopover mode="hover" v-if="formState.picto_file">
+          <UPopover
+            mode="hover"
+            v-if="formState.picto_file && isAnImage(formState.picto_file)"
+          >
             <UButton
               color="white"
               :label="$t('bo.buttons.seeFile')"
@@ -42,49 +45,68 @@
             <template #panel>
               <div class="p-4">
                 <NuxtImg
-                  :src="(formState.picto_file as string)"
+                  :src="(formState.picto_file as string) + '?' + Math.floor(Math.random() * 1000)"
                   alt="picto"
                   class="w-48"
                 />
               </div>
             </template>
           </UPopover>
-          <!-- <ULink
-          v-if="formState.picto_file"
-          :to="formState.picto_file"
-          target="_blank"
-          class="text-gray-700 text-sm underline"
-          >{{ $t('bo.buttons.seeFile') }}</ULink
-        > -->
+
           <UButton
-            v-if="formState.picto_file"
-            @click="showPictoDeleteConfirm = true"
-            target="_blank"
+            v-if="
+              formState.picto_file &&
+              typeof formState.picto_file === 'string' &&
+              !isAnImage(formState.picto_file)
+            "
+            :to="formState.picto_file"
+            icon="i-heroicons-document-magnifying-glass"
+            class="text-gray-700 text-sm"
             color="white"
             variant="link"
-            icon="i-heroicons-trash"
-            class="ml-2 text-gray-700 text-sm"
-            >{{ $t('bo.buttons.delete') }}</UButton
+            target="blank"
+            >{{ $t('bo.buttons.seeFile') }}</UButton
           >
-          <div v-if="showPictoDeleteConfirm">
-            <div class="text-sm">
-              Vous êtes sur le point de supprimer ce visuel. Êtes-vous sûr ?
-            </div>
+
+          <UPopover
+            overlay
+            v-if="
+              formState.picto_file && typeof formState.picto_file === 'string'
+            "
+            :popper="{ placement: 'bottom-end' }"
+          >
             <UButton
+              target="_blank"
               color="white"
               variant="link"
-              class="ml-2 text-red-600 text-sm"
-              @click="deletePictoFile"
-              >{{ $t('bo.buttons.confirm') }}</UButton
-            >
-            <UButton
-              color="white"
-              variant="link"
+              icon="i-heroicons-trash"
               class="ml-2 text-gray-700 text-sm"
-              @click="showPictoDeleteConfirm = false"
-              >{{ $t('bo.buttons.cancel') }}</UButton
+              >{{ $t('bo.buttons.delete') }}</UButton
             >
-          </div>
+            <template #panel="{ close }">
+              <div class="p-4">
+                <div class="text-sm">
+                  Vous êtes sur le point de supprimer ce document.<br />Êtes-vous
+                  sûr ?
+                </div>
+                <div class="flex content-around justify-around mt-4">
+                  <UButton
+                    variant="solid"
+                    class="bg-red-700 hover:bg-red-600 text-white text-sm"
+                    @click="deletePictoFile"
+                    >{{ $t('bo.buttons.confirm') }}</UButton
+                  >
+                  <UButton
+                    color="white"
+                    variant="solid"
+                    class="text-gray-700 text-sm hover:bg-gray-200"
+                    @click="close"
+                    >{{ $t('bo.buttons.cancel') }}</UButton
+                  >
+                </div>
+              </div>
+            </template>
+          </UPopover>
         </div>
       </UFormGroup>
       <UFormGroup
@@ -135,7 +157,6 @@ const showImageDeleteConfirm = ref(false)
 const onPictoFileChange = (event: Event) => {
   const file = (event.target as HTMLInputElement).files?.[0]
   formState.picto_file = file
-  console.log('formState.picto_file :>> ', formState.picto_file)
 }
 const onImageFileChange = (event: Event) => {
   const file = (event.target as HTMLInputElement).files?.[0]
@@ -151,6 +172,16 @@ const deletePictoFile = async () => {
     formState.picto_file = undefined
     showPictoDeleteConfirm.value = false
   }
+}
+
+const isAnImage = (path: any) => {
+  if (!path) return false
+  if (typeof path !== 'string') return false
+
+  const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp']
+  const extension = path ? path.split('.').pop()?.toLowerCase() : ''
+
+  return extension !== undefined && imageExtensions.includes(extension)
 }
 
 const professionId = route.params.id
