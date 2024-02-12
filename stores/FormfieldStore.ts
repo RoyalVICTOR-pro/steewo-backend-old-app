@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-// import { useFetch } from '@vueuse/core'
 import type { FormField } from '@/types/FormField'
 import type { FormFieldOrder } from '@/types/FormFieldOrder'
 
@@ -46,11 +45,14 @@ export const useFormFieldStore = defineStore('formfield', () => {
     }
   }
 
-  const updateFormField = async (formField: FormField) => {
-    console.log('formField :>> ', formField)
+  const updateFormField = async (
+    formField: FormData,
+    serviceId: number,
+    formFieldId: number
+  ) => {
     try {
       const updatedFormField = await update(
-        `/services/${formField.service_id}/form-fields/${formField.id}`,
+        `/services/${serviceId}/form-fields/${formFieldId}`,
         formField
       )
       toastSuccess(t('bo.toasts.formFieldUpdated'))
@@ -75,6 +77,17 @@ export const useFormFieldStore = defineStore('formfield', () => {
     }
   }
 
+  const deleteFormFieldToolTipImage = async (id: Number) => {
+    try {
+      await patch(`/form-fields/${id}/delete-tooltip-image`)
+      toastSuccess(t('bo.toasts.formFieldTooltipImageDeleted'))
+      return true
+    } catch (error) {
+      toastError(error.message)
+      return false
+    }
+  }
+
   const deleteFormField = async (id: Number, id_service) => {
     try {
       await del(`/services/${id_service}/form-fields/${id}`)
@@ -94,6 +107,7 @@ export const useFormFieldStore = defineStore('formfield', () => {
     addFormField,
     updateFormField,
     updateFormFieldsOrder,
+    deleteFormFieldToolTipImage,
     deleteFormField,
   }
 })

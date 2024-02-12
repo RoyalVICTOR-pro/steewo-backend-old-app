@@ -38,6 +38,11 @@
       >
         <UInput v-model="formState.tooltip_text" />
       </UFormGroup>
+      <FileUploadInput
+        fieldName="tooltip_image_file"
+        :label="$t('bo.forms.fields.formFields.tooltip_image_file')"
+        v-model:file="formState.tooltip_image_file"
+      />
       <UFormGroup
         :label="$t('bo.forms.fields.formFields.description')"
         name="description"
@@ -91,20 +96,25 @@ const formState = reactive({
   type: undefined,
   mandatory: false,
   tooltip_text: undefined,
+  tooltip_image_file: undefined as File | string | undefined,
   description: undefined,
   placeholder: undefined,
 })
 
 const onSubmit = async () => {
   if (!isValid(formState)) return
-  const newFormField = {
-    type: formState.type,
-    label: formState.label,
-    mandatory: formState.mandatory,
-    tooltip_text: formState.tooltip_text,
-    description: formState.description,
-    placeholder: formState.placeholder,
+
+  const newFormField = new FormData()
+  newFormField.append('label', formState.label ?? '')
+  newFormField.append('type', formState.type ?? '')
+  newFormField.append('mandatory', formState.mandatory.toString())
+  newFormField.append('tooltip_text', formState.tooltip_text ?? '')
+  if (formState.tooltip_image_file) {
+    newFormField.append('tooltip_image_file', formState.tooltip_image_file)
   }
+  newFormField.append('description', formState.description ?? '')
+  newFormField.append('placeholder', formState.placeholder ?? '')
+
   if (
     await formFieldStore.addFormField(newFormField, route.params.id_service)
   ) {
