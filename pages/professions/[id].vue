@@ -88,6 +88,7 @@ const deleteImageFile = async () => {
 
 const onSubmit = async () => {
   if (!isValid(formState)) return
+
   const updatedProfession = new FormData()
   updatedProfession.append('name', formState.name ?? '')
   updatedProfession.append('is_enabled', formState.is_enabled.toString())
@@ -101,6 +102,7 @@ const onSubmit = async () => {
     await navigateTo('/professions')
   }
 }
+
 onMounted(async () => {
   const profession = await professionStore.getProfessionById(professionId)
 
@@ -112,6 +114,7 @@ onMounted(async () => {
     formState.picto_file = $filesPath(profession.picto_file)
   if (profession.image_file)
     formState.image_file = $filesPath(profession.image_file)
+
   navigationStore.updatePageTitle(
     t('bo.pageTitles.professionsEdit', { professionName: profession.name })
   )

@@ -1,8 +1,6 @@
-import { Profession } from './../types/Profession'
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-// import { useFetch } from '@vueuse/core'
-import type { Profession } from '@/types/Profession'
+import { Profession } from '@/types/Profession'
 
 export const useProfessionStore = defineStore('profession', () => {
   const professions = ref<Profession[]>([])

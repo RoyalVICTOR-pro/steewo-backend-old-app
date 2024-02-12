@@ -57,18 +57,9 @@ navigationStore.setMainMenuActiveLink('professions')
 const formState = reactive({
   name: undefined,
   is_enabled: false,
-  picto_file: undefined as File | undefined,
-  image_file: undefined as File | undefined,
+  picto_file: undefined as File | string | undefined,
+  image_file: undefined as File | string | undefined,
 })
-
-const onPictoFileChange = (event: Event) => {
-  const file = (event.target as HTMLInputElement).files?.[0]
-  formState.picto_file = file
-}
-const onImageFileChange = (event: Event) => {
-  const file = (event.target as HTMLInputElement).files?.[0]
-  formState.image_file = file
-}
 
 const onSubmit = async () => {
   if (!isValid(formState)) return

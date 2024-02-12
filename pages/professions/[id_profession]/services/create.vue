@@ -25,8 +25,18 @@
         name="short_name"
         required
       >
-        <UInput v-model="formState.short_name" autofocus />
+        <UInput v-model="formState.short_name" />
       </UFormGroup>
+      <FileUploadInput
+        fieldName="picto_file"
+        :label="$t('bo.forms.fields.services.picto_file')"
+        v-model:file="formState.picto_file"
+      />
+      <FileUploadInput
+        fieldName="image_file"
+        :label="$t('bo.forms.fields.services.image_file')"
+        v-model:file="formState.image_file"
+      />
       <UCheckbox
         v-model="formState.is_enabled"
         :label="$t('bo.forms.fields.services.is_enabled')"
@@ -69,15 +79,24 @@ const formState = reactive({
   name: undefined,
   short_name: undefined,
   is_enabled: false,
+  picto_file: undefined as File | string | undefined,
+  image_file: undefined as File | string | undefined,
 })
 
 const onSubmit = async () => {
   if (!isValid(formState)) return
-  const newService = {
-    name: formState.name,
-    short_name: formState.short_name,
-    is_enabled: formState.is_enabled,
+
+  const newService = new FormData()
+  newService.append('name', formState.name ?? '')
+  newService.append('short_name', formState.short_name ?? '')
+  newService.append('is_enabled', formState.is_enabled.toString())
+  if (formState.picto_file) {
+    newService.append('picto_file', formState.picto_file)
   }
+  if (formState.image_file) {
+    newService.append('image_file', formState.image_file)
+  }
+
   if (await serviceStore.addService(newService, route.params.id_profession)) {
     await navigateTo('/professions/' + route.params.id_profession + '/services')
   }

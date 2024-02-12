@@ -27,6 +27,18 @@
       >
         <UInput v-model="formState.short_name" autofocus />
       </UFormGroup>
+      <FileUploadInput
+        fieldName="picto_file"
+        :label="$t('bo.forms.fields.services.picto_file')"
+        v-model:file="formState.picto_file"
+        @delete-file="deletePictoFile"
+      />
+      <FileUploadInput
+        fieldName="image_file"
+        :label="$t('bo.forms.fields.services.image_file')"
+        v-model:file="formState.image_file"
+        @delete-file="deleteImageFile"
+      />
       <UCheckbox
         v-model="formState.is_enabled"
         :label="$t('bo.forms.fields.services.is_enabled')"
@@ -44,6 +56,7 @@
 import type { Service } from '~/types/Service'
 
 const { t } = useI18n()
+const { $filesPath } = useNuxtApp()
 const { serviceSchema } = useValidatorSelector()
 const { schema, isValid } = useFormValidator(serviceSchema)
 const route = useRoute()
@@ -58,23 +71,49 @@ const formState = reactive({
   name: '',
   short_name: '',
   is_enabled: false,
+  picto_file: undefined as File | string | undefined,
+  image_file: undefined as File | string | undefined,
 })
 const serviceId = route.params.id
+
+const deletePictoFile = async () => {
+  if (await serviceStore.deleteServicePicto(parseInt(serviceId as string))) {
+    formState.picto_file = undefined
+  }
+}
+
+const deleteImageFile = async () => {
+  if (await serviceStore.deleteServiceImage(parseInt(serviceId as string))) {
+    formState.image_file = undefined
+  }
+}
 
 const onSubmit = async () => {
   if (!isValid(formState)) return
 
-  const updatedService: Service = {
-    id: parseInt(serviceId as string),
-    profession_id: parseInt(route.params.id_profession as string),
-    name: formState.name,
-    short_name: formState.short_name,
-    is_enabled: formState.is_enabled,
+  const updatedService = new FormData()
+  updatedService.append('id', serviceId as string)
+  updatedService.append('name', formState.name ?? '')
+  updatedService.append('short_name', formState.short_name ?? '')
+  updatedService.append('is_enabled', formState.is_enabled.toString())
+  if (formState.picto_file instanceof File) {
+    updatedService.append('picto_file', formState.picto_file)
   }
-  if (await serviceStore.updateService(updatedService)) {
+  if (formState.image_file instanceof File) {
+    updatedService.append('image_file', formState.image_file)
+  }
+  console.log('updatedService :>> ', updatedService)
+  if (
+    await serviceStore.updateService(
+      updatedService,
+      parseInt(route.params.id_profession as string),
+      parseInt(serviceId as string)
+    )
+  ) {
     await navigateTo('/professions/' + route.params.id_profession + '/services')
   }
 }
+
 onMounted(async () => {
   const profession = await professionStore.getCurrentProfession(
     route.params.id_profession
@@ -91,10 +130,13 @@ onMounted(async () => {
   formState.name = service.name
   formState.short_name = service.short_name
   formState.is_enabled = service.is_enabled === 1 ? true : false
+  if (service.picto_file) formState.picto_file = $filesPath(service.picto_file)
+  if (service.image_file) formState.image_file = $filesPath(service.image_file)
+
   navigationStore.updatePageTitle(
     t('bo.pageTitles.servicesEdit', {
       professionName: profession.name,
-      serviceName: service.name,
+      serviceName: service.short_name,
     })
   )
 })

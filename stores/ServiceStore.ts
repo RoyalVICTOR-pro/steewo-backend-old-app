@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-// import { useFetch } from '@vueuse/core'
 import type { Service } from '@/types/Service'
 
 export const useServiceStore = defineStore('service', () => {
@@ -57,11 +56,14 @@ export const useServiceStore = defineStore('service', () => {
     }
   }
 
-  const updateService = async (service: Service) => {
-    console.log('service :>> ', service)
+  const updateService = async (
+    service: FormData,
+    professionId: number,
+    serviceId: number
+  ) => {
     try {
       const updatedService = await update(
-        `/professions/${service.profession_id}/services/${service.id}`,
+        `/professions/${professionId}/services/${serviceId}`,
         service
       )
       currentService.value = updatedService
@@ -94,10 +96,31 @@ export const useServiceStore = defineStore('service', () => {
     }
   }
 
+  const deleteServicePicto = async (id: Number) => {
+    try {
+      await patch(`/services/${id}/delete-picto`)
+      toastSuccess(t('bo.toasts.servicePictoDeleted'))
+      return true
+    } catch (error) {
+      toastError(error.message)
+      return false
+    }
+  }
+
+  const deleteServiceImage = async (id: Number) => {
+    try {
+      await patch(`/services/${id}/delete-image`)
+      toastSuccess(t('bo.toasts.serviceImageDeleted'))
+      return true
+    } catch (error) {
+      toastError(error.message)
+      return false
+    }
+  }
+
   const deleteService = async (id: Number, id_profession) => {
     try {
       await del(`/professions/${id_profession}/services/${id}`)
-      console.log('getServices appelé avec id_profession :>> ', id_profession)
       getServices(id_profession)
       toastSuccess(t('bo.toasts.serviceDeleted'))
       return true
@@ -115,6 +138,8 @@ export const useServiceStore = defineStore('service', () => {
     addService,
     updateService,
     toggleServiceStatus,
+    deleteServicePicto,
+    deleteServiceImage,
     deleteService,
   }
 })

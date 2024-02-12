@@ -21,7 +21,6 @@ export const useNavigationStore = defineStore('navigation', () => {
 
   const getRouteById = (id: string) => {
     if (id === MenuID.LOGOUT) {
-      console.log('logout')
       return '/logout'
     }
 
