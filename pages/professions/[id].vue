@@ -23,15 +23,13 @@
       <FileUploadInput
         fieldName="picto_file"
         :label="$t('bo.forms.fields.professions.picto_file')"
-        :file="formState.picto_file"
-        @file-change="onPictoFileChange"
+        v-model:file="formState.picto_file"
         @delete-file="deletePictoFile"
       />
       <FileUploadInput
         fieldName="image_file"
         :label="$t('bo.forms.fields.professions.image_file')"
-        :file="formState.image_file"
-        @file-change="onImageFileChange"
+        v-model:file="formState.image_file"
         @delete-file="deleteImageFile"
       />
       <UCheckbox
@@ -67,13 +65,6 @@ const formState = reactive({
   picto_file: undefined as File | string | undefined,
   image_file: undefined as File | string | undefined,
 })
-
-const onPictoFileChange = (file: File) => {
-  formState.picto_file = file
-}
-const onImageFileChange = (file: File) => {
-  formState.image_file = file
-}
 
 const deletePictoFile = async () => {
   if (

@@ -2,7 +2,7 @@
   <UFormGroup :label="props.label" :name="props.fieldName">
     <UInput type="file" @change="onFileChange" inputClass="custom_input" />
     <div class="flex">
-      <UPopover mode="hover" v-if="props.file && isAnImage(props.file)">
+      <UPopover mode="hover" v-if="file && isAnImage(file)">
         <UButton
           color="white"
           :label="$t('bo.buttons.seeFile')"
@@ -14,7 +14,7 @@
         <template #panel>
           <div class="p-4">
             <NuxtImg
-              :src="(props.file as string) + '?' + Math.floor(Math.random() * 1000)"
+              :src="(file as string) + '?' + Math.floor(Math.random() * 1000)"
               alt="picto"
               class="w-48"
             />
@@ -23,10 +23,8 @@
       </UPopover>
 
       <UButton
-        v-if="
-          props.file && typeof props.file === 'string' && !isAnImage(props.file)
-        "
-        :to="props.file"
+        v-if="file && typeof file === 'string' && !isAnImage(file)"
+        :to="file"
         icon="i-heroicons-document-magnifying-glass"
         class="text-gray-700 text-sm"
         color="white"
@@ -37,7 +35,7 @@
 
       <UPopover
         overlay
-        v-if="props.file && typeof props.file === 'string'"
+        v-if="file && typeof file === 'string'"
         :popper="{ placement: 'bottom-end' }"
       >
         <UButton
@@ -77,22 +75,19 @@
 </template>
 
 <script lang="ts" setup>
+const file = defineModel('file')
+
 const props = defineProps<{
   label: string
   fieldName: string
-  file: File | string | undefined
 }>()
 
 const emit = defineEmits<{
-  (e: 'file-change', file: File): void
   (e: 'delete-file'): void
 }>()
 
 const onFileChange = (event: Event) => {
-  const file = (event.target as HTMLInputElement).files?.[0]
-  if (file) {
-    emit('file-change', file)
-  }
+  file.value = (event.target as HTMLInputElement).files?.[0]
 }
 
 const isAnImage = (path: any) => {
