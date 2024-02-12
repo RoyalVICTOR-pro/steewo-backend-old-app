@@ -20,105 +20,20 @@
       >
         <UInput v-model="formState.name" autofocus />
       </UFormGroup>
-      <UFormGroup
+      <FileUploadInput
+        fieldName="picto_file"
         :label="$t('bo.forms.fields.professions.picto_file')"
-        name="picto_file"
-      >
-        <UInput
-          type="file"
-          @change="onPictoFileChange"
-          inputClass="custom_input"
-        />
-        <div class="flex">
-          <UPopover
-            mode="hover"
-            v-if="formState.picto_file && isAnImage(formState.picto_file)"
-          >
-            <UButton
-              color="white"
-              :label="$t('bo.buttons.seeFile')"
-              icon="i-heroicons-document-magnifying-glass"
-              class="text-gray-700 text-sm"
-              variant="link"
-            />
-
-            <template #panel>
-              <div class="p-4">
-                <NuxtImg
-                  :src="(formState.picto_file as string) + '?' + Math.floor(Math.random() * 1000)"
-                  alt="picto"
-                  class="w-48"
-                />
-              </div>
-            </template>
-          </UPopover>
-
-          <UButton
-            v-if="
-              formState.picto_file &&
-              typeof formState.picto_file === 'string' &&
-              !isAnImage(formState.picto_file)
-            "
-            :to="formState.picto_file"
-            icon="i-heroicons-document-magnifying-glass"
-            class="text-gray-700 text-sm"
-            color="white"
-            variant="link"
-            target="blank"
-            >{{ $t('bo.buttons.seeFile') }}</UButton
-          >
-
-          <UPopover
-            overlay
-            v-if="
-              formState.picto_file && typeof formState.picto_file === 'string'
-            "
-            :popper="{ placement: 'bottom-end' }"
-          >
-            <UButton
-              target="_blank"
-              color="white"
-              variant="link"
-              icon="i-heroicons-trash"
-              class="ml-2 text-gray-700 text-sm"
-              >{{ $t('bo.buttons.delete') }}</UButton
-            >
-            <template #panel="{ close }">
-              <div class="p-4">
-                <div class="text-sm">
-                  Vous êtes sur le point de supprimer ce document.<br />Êtes-vous
-                  sûr ?
-                </div>
-                <div class="flex content-around justify-around mt-4">
-                  <UButton
-                    variant="solid"
-                    class="bg-red-700 hover:bg-red-600 text-white text-sm"
-                    @click="deletePictoFile"
-                    >{{ $t('bo.buttons.confirm') }}</UButton
-                  >
-                  <UButton
-                    color="white"
-                    variant="solid"
-                    class="text-gray-700 text-sm hover:bg-gray-200"
-                    @click="close"
-                    >{{ $t('bo.buttons.cancel') }}</UButton
-                  >
-                </div>
-              </div>
-            </template>
-          </UPopover>
-        </div>
-      </UFormGroup>
-      <UFormGroup
+        :file="formState.picto_file"
+        @file-change="onPictoFileChange"
+        @delete-file="deletePictoFile"
+      />
+      <FileUploadInput
+        fieldName="image_file"
         :label="$t('bo.forms.fields.professions.image_file')"
-        name="image_file"
-      >
-        <UInput
-          type="file"
-          @change="onImageFileChange"
-          inputClass="custom_input"
-        />
-      </UFormGroup>
+        :file="formState.image_file"
+        @file-change="onImageFileChange"
+        @delete-file="deleteImageFile"
+      />
       <UCheckbox
         v-model="formState.is_enabled"
         :label="$t('bo.forms.fields.professions.is_enabled')"
@@ -139,6 +54,8 @@ const { professionSchema } = useValidatorSelector()
 const { schema, isValid } = useFormValidator(professionSchema)
 const route = useRoute()
 
+const professionId = route.params.id
+
 const professionStore = useProfessionStore()
 
 const navigationStore = useNavigationStore()
@@ -151,15 +68,10 @@ const formState = reactive({
   image_file: undefined as File | string | undefined,
 })
 
-const showPictoDeleteConfirm = ref(false)
-const showImageDeleteConfirm = ref(false)
-
-const onPictoFileChange = (event: Event) => {
-  const file = (event.target as HTMLInputElement).files?.[0]
+const onPictoFileChange = (file: File) => {
   formState.picto_file = file
 }
-const onImageFileChange = (event: Event) => {
-  const file = (event.target as HTMLInputElement).files?.[0]
+const onImageFileChange = (file: File) => {
   formState.image_file = file
 }
 
@@ -170,21 +82,18 @@ const deletePictoFile = async () => {
     )
   ) {
     formState.picto_file = undefined
-    showPictoDeleteConfirm.value = false
   }
 }
 
-const isAnImage = (path: any) => {
-  if (!path) return false
-  if (typeof path !== 'string') return false
-
-  const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp']
-  const extension = path ? path.split('.').pop()?.toLowerCase() : ''
-
-  return extension !== undefined && imageExtensions.includes(extension)
+const deleteImageFile = async () => {
+  if (
+    await professionStore.deleteProfessionImage(
+      parseInt(professionId as string)
+    )
+  ) {
+    formState.image_file = undefined
+  }
 }
-
-const professionId = route.params.id
 
 const onSubmit = async () => {
   if (!isValid(formState)) return

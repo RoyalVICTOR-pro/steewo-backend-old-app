@@ -93,6 +93,17 @@ export const useProfessionStore = defineStore('profession', () => {
     }
   }
 
+  const deleteProfessionImage = async (id: Number) => {
+    try {
+      await patch(`/professions/${id}/delete-image`)
+      toastSuccess(t('bo.toasts.professionImageDeleted'))
+      return true
+    } catch (error) {
+      toastError(error.message)
+      return false
+    }
+  }
+
   const deleteProfession = async (id: Number) => {
     try {
       await del(`/professions/${id}`)
@@ -114,6 +125,7 @@ export const useProfessionStore = defineStore('profession', () => {
     updateProfession,
     toggleProfessionStatus,
     deleteProfessionPicto,
+    deleteProfessionImage,
     deleteProfession,
   }
 })
