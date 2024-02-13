@@ -16,8 +16,8 @@
     "@nuxtjs/i18n": "^8.0.0-rc.11",
     "nuxt": "^3.10.1",
     "sass": "^1.70.0",
-    "vue": "^3.4.0",
-    "vue-router": "latest"
+    "vue": "^3.3.12",
+    "vue-router": "^4.2.5"
   },
   "dependencies": {
     "@nuxt/ui": "^2.11.1",
@@ -27,6 +27,7 @@
     "luxon": "^3.4.4",
     "pinia": "^2.1.7",
     "vue3-smooth-dnd": "^0.0.6",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "@sindresorhus/merge-streams": "2.1.0"
   }
 }

@@ -14,6 +14,7 @@ export default defineI18nConfig(() => ({
           missions: 'Missions',
         },
         pageTitles: {
+          dashboard: 'Tableau de bord',
           professionsMain: 'Métiers',
           professionsAdd: 'Ajouter un métier',
           professionsEdit: 'Modifier le métier "{professionName}"',
@@ -100,6 +101,7 @@ export default defineI18nConfig(() => ({
         errors: {
           internalServerError:
             'Une erreur est survenue. Veuillez actualiser la page ou essayer ultérieurement.',
+          notFound: "La page demandée n'existe pas.",
         },
         toasts: {
           professionAdded: 'Le métier a bien été ajouté.',
