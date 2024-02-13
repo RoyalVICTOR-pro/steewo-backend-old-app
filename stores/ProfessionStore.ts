@@ -31,7 +31,8 @@ export const useProfessionStore = defineStore('profession', () => {
   }
 
   const getCurrentProfession = async (id) => {
-    if (currentProfession.value) return currentProfession.value
+    // if (currentProfession.value) return currentProfession.value
+    console.log('id in getCurrentProfession :>> ', id)
     try {
       currentProfession.value = await getProfessionById(id)
       return currentProfession.value

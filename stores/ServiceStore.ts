@@ -33,7 +33,6 @@ export const useServiceStore = defineStore('service', () => {
   }
 
   const getCurrentService = async (id, id_profession) => {
-    if (currentService.value) return currentService.value
     try {
       currentService.value = await getServiceById(id, id_profession)
       return currentService.value
