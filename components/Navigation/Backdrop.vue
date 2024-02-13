@@ -9,7 +9,7 @@
 const navigationStore = useNavigationStore()
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .custom_backdrop {
   cursor: pointer;
   @apply fixed inset-0 z-30 bg-black bg-opacity-50;

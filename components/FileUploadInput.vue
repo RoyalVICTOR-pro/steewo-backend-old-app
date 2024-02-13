@@ -110,7 +110,7 @@ const isAnImage = (path: any) => {
 }
 </script>
 
-<style>
+<style lang="scss">
 .custom_input {
   @apply px-0 m-0 block 
     w-full 
