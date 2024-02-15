@@ -27,6 +27,16 @@
       >
         <USelect v-model="formState.type" :options="FormFieldsTypesForSelect" />
       </UFormGroup>
+      <ManageValuesForFieldsModal
+        v-if="formState.type === FormFieldsTypes.SELECT"
+        :values="formState.possible_values.items"
+        @new-values="updatePossibleValues"
+      />
+      <ManageValuesForFieldsModal
+        v-if="formState.type === FormFieldsTypes.RADIO"
+        :values="formState.possible_values.items"
+        @new-values="updatePossibleValues"
+      />
       <UCheckbox
         v-model="formState.mandatory"
         :label="$t('bo.forms.fields.formFields.mandatory')"
@@ -65,7 +75,10 @@
 </template>
 
 <script setup lang="ts">
-import FormFieldsTypesForSelect from '~/enums/FormFieldsTypes'
+import {
+  FormFieldsTypesForSelect,
+  FormFieldsTypes,
+} from '~/enums/FormFieldsTypes'
 
 const { t } = useI18n()
 const { $filesPath } = useNuxtApp()
@@ -87,6 +100,9 @@ const formState = reactive({
   tooltip_image_file: undefined as File | string | undefined,
   description: '',
   placeholder: '',
+  possible_values: {
+    items: [] as any[],
+  },
 })
 const formFieldId = route.params.id
 
@@ -98,6 +114,10 @@ const deleteToolTipImageFile = async () => {
   ) {
     formState.tooltip_image_file = undefined
   }
+}
+
+const updatePossibleValues = (newValues: any[]) => {
+  formState.possible_values.items = newValues
 }
 
 const onSubmit = async () => {
@@ -115,6 +135,10 @@ const onSubmit = async () => {
   }
   updatedFormField.append('description', formState.description)
   updatedFormField.append('placeholder', formState.placeholder)
+  updatedFormField.append(
+    'possible_values',
+    JSON.stringify(formState.possible_values)
+  )
 
   if (
     await formFieldStore.updateFormField(
@@ -155,6 +179,8 @@ onMounted(async () => {
   formState.mandatory = formField.mandatory === 1 ? true : false
   if (formField.tooltip_image_file)
     formState.tooltip_image_file = $filesPath(formField.tooltip_image_file)
+  if (formField.possible_values)
+    formState.possible_values = JSON.parse(formField.possible_values)
 
   navigationStore.updatePageTitle(
     t('bo.pageTitles.formFieldsEdit', {

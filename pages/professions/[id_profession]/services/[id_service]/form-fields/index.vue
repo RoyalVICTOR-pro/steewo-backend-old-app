@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts" setup>
-import FormFieldsTypesForSelect from '~/enums/FormFieldsTypes'
+import { FormFieldsTypesForSelect } from '~/enums/FormFieldsTypes'
 
 const { t } = useI18n()
 const navigationStore = useNavigationStore()

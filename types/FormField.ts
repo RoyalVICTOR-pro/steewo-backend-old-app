@@ -10,6 +10,7 @@ export interface FormField {
   tooltip_text?: string
   description?: string
   placeholder?: string
+  possible_values?: string
   created_at?: DateTime
   updated_at?: DateTime
 }
