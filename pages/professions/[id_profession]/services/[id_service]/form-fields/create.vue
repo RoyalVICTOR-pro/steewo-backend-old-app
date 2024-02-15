@@ -27,6 +27,16 @@
       >
         <USelect v-model="formState.type" :options="FormFieldsTypesForSelect" />
       </UFormGroup>
+      <ManageValuesForFieldsModal
+        v-if="formState.type === FormFieldsTypes.SELECT"
+        :values="formState.possible_values.items"
+        @new-values="updatePossibleValues"
+      />
+      <ManageValuesForFieldsModal
+        v-if="formState.type === FormFieldsTypes.RADIO"
+        :values="formState.possible_values.items"
+        @new-values="updatePossibleValues"
+      />
       <UCheckbox
         v-model="formState.mandatory"
         :label="$t('bo.forms.fields.formFields.mandatory')"
@@ -64,7 +74,10 @@
 </template>
 
 <script setup lang="ts">
-import FormFieldsTypesForSelect from '~/enums/FormFieldsTypes'
+import {
+  FormFieldsTypesForSelect,
+  FormFieldsTypes,
+} from '~/enums/FormFieldsTypes'
 
 const { t } = useI18n()
 const { formFieldSchema } = useValidatorSelector()
@@ -99,7 +112,14 @@ const formState = reactive({
   tooltip_image_file: undefined as File | string | undefined,
   description: undefined,
   placeholder: undefined,
+  possible_values: {
+    items: [] as any[],
+  },
 })
+
+const updatePossibleValues = (newValues: any[]) => {
+  formState.possible_values.items = newValues
+}
 
 const onSubmit = async () => {
   if (!isValid(formState)) return
@@ -114,6 +134,10 @@ const onSubmit = async () => {
   }
   newFormField.append('description', formState.description ?? '')
   newFormField.append('placeholder', formState.placeholder ?? '')
+  newFormField.append(
+    'possible_values',
+    JSON.stringify(formState.possible_values)
+  )
 
   if (
     await formFieldStore.addFormField(newFormField, route.params.id_service)

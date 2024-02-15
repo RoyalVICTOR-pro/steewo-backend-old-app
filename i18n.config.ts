@@ -27,6 +27,7 @@ export default defineI18nConfig(() => ({
           formFieldsEdit:
             'Modifier le champ "{fieldName}" du service "{serviceName}"',
           formFieldsReorder: 'Réordonner les champs de ce service',
+          manageValues: 'Gérer les valeurs proposées pour ce type de champ',
         },
         buttons: {
           addProfession: 'Ajouter un métier',
@@ -36,6 +37,7 @@ export default defineI18nConfig(() => ({
           addFormField: 'Ajouter un champ',
           editFormField: 'Modifier ce champ',
           manageServices: 'Gérer les services',
+          manageValues: 'Gérer les valeurs proposées',
           manageFormFields: 'Gérer les champs',
           seeFile: 'Voir le fichier',
           add: 'Ajouter',
@@ -89,6 +91,13 @@ export default defineI18nConfig(() => ({
               tooltip_text: "Texte d'aide",
               description: 'Description',
               placeholder: 'Placeholder',
+              possibleValues: {
+                valuesPlaceholder:
+                  'Valeur BDD (ni espace, ni accent, ni caractères spéciaux sauf - et _)',
+                labelsPlaceholder:
+                  'Entrez ici le label visible des utilisateurs',
+                addValueButton: 'Ajouter une valeur',
+              },
             },
           },
           errors: {
@@ -97,6 +106,9 @@ export default defineI18nConfig(() => ({
             passwordLength:
               'Le mot de passe doit contenir au moins 8 caractères',
           },
+        },
+        messages: {
+          noValues: 'Aucune valeur pour le moment',
         },
         errors: {
           internalServerError:
