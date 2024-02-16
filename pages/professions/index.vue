@@ -4,7 +4,21 @@
       {{ $t('bo.buttons.addProfession') }}
     </UButton>
     <UCard class="mt-4">
-      <UTable :rows="professionStore.professions" :columns="columns">
+      <UInput
+        v-model="filter"
+        :placeholder="t('bo.placeholders.filter')"
+        class="w-72 ml-auto"
+      />
+      <UDivider class="mt-3" />
+      <UTable
+        :rows="filteredRows"
+        :columns="columns"
+        :empty-state="{
+          icon: 'i-heroicons-circle-stack-20-solid',
+          label: t('bo.messages.noItems'),
+        }"
+        class="custom_table"
+      >
         <template #is_enabled-data="{ row }">
           <UButton
             @click="
@@ -61,6 +75,20 @@ navigationStore.setMainMenuActiveLink('professions')
 
 const professionStore = useProfessionStore()
 await professionStore.getProfessions()
+
+const filter = ref('')
+
+const filteredRows = computed(() => {
+  if (!filter.value) {
+    return professionStore.professions
+  }
+
+  return professionStore.professions.filter((profession) => {
+    return Object.values(profession).some((value) => {
+      return String(value).toLowerCase().includes(filter.value.toLowerCase())
+    })
+  })
+})
 
 const columns = [
   {

@@ -21,7 +21,15 @@
       />
     </div>
     <UCard class="mt-4">
-      <UTable :rows="formFieldStore.formFields" :columns="columns">
+      <UTable
+        :rows="formFieldStore.formFields"
+        :columns="columns"
+        :empty-state="{
+          icon: 'i-heroicons-circle-stack-20-solid',
+          label: t('bo.messages.noItems'),
+        }"
+        class="custom_table"
+      >
         <template #type-data="{ row }">
           {{ getTypeLabelByValue(row.type) }}
         </template>

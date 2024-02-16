@@ -14,7 +14,17 @@
       {{ $t('bo.buttons.addService') }}
     </UButton>
     <UCard class="mt-4">
-      <UTable :rows="serviceStore.services" :columns="columns">
+      <UInput v-model="filter" placeholder="Filtrer..." class="w-72 ml-auto" />
+      <UDivider class="mt-3" />
+      <UTable
+        :rows="filteredRows"
+        :columns="columns"
+        :empty-state="{
+          icon: 'i-heroicons-circle-stack-20-solid',
+          label: t('bo.messages.noItems'),
+        }"
+        class="custom_table"
+      >
         <template #is_enabled-data="{ row }">
           <UButton
             @click="
@@ -91,6 +101,20 @@ if (profession !== undefined && profession !== null) {
 } else {
   await navigateTo('/professions')
 }
+
+const filter = ref('')
+
+const filteredRows = computed(() => {
+  if (!filter.value) {
+    return serviceStore.services
+  }
+
+  return serviceStore.services.filter((service) => {
+    return Object.values(service).some((value) => {
+      return String(value).toLowerCase().includes(filter.value.toLowerCase())
+    })
+  })
+})
 
 const columns = [
   {

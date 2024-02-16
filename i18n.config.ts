@@ -109,6 +109,11 @@ export default defineI18nConfig(() => ({
         },
         messages: {
           noValues: 'Aucune valeur pour le moment',
+          noItems: "Aucune donnée pour l'instant.",
+        },
+        placeholders: {
+          search: 'Rechercher...',
+          filter: 'Filtrer...',
         },
         errors: {
           internalServerError:
