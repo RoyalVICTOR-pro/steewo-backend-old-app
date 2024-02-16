@@ -30,6 +30,9 @@
         }"
         class="custom_table"
       >
+        <template #label-data="{ row }">
+          <span class="whitespace-normal"> {{ row.label }} </span>
+        </template>
         <template #type-data="{ row }">
           {{ getTypeLabelByValue(row.type) }}
         </template>
