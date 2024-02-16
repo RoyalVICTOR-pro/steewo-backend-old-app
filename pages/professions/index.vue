@@ -63,6 +63,16 @@
           />
         </template>
       </UTable>
+      <div
+        v-if="professionStore.professions.length > maxRowsPerPage"
+        class="flex justify-end px-3 py-3.5 border-t border-gray-200 dark:border-gray-700"
+      >
+        <UPagination
+          v-model="currentPage"
+          :page-count="maxRowsPerPage"
+          :total="professionStore.professions.length"
+        />
+      </div>
     </UCard>
   </div>
 </template>
@@ -76,18 +86,31 @@ navigationStore.setMainMenuActiveLink('professions')
 const professionStore = useProfessionStore()
 await professionStore.getProfessions()
 
+const currentPage = ref(1)
+const maxRowsPerPage = 5
+
 const filter = ref('')
 
 const filteredRows = computed(() => {
   if (!filter.value) {
-    return professionStore.professions
+    return professionStore.professions.slice(
+      (currentPage.value - 1) * maxRowsPerPage,
+      currentPage.value * maxRowsPerPage
+    )
   }
 
-  return professionStore.professions.filter((profession) => {
-    return Object.values(profession).some((value) => {
-      return String(value).toLowerCase().includes(filter.value.toLowerCase())
-    })
-  })
+  const filteredProfessions = professionStore.professions.filter(
+    (profession) => {
+      return Object.values(profession).some((value) => {
+        return String(value).toLowerCase().includes(filter.value.toLowerCase())
+      })
+    }
+  )
+
+  return filteredProfessions.slice(
+    (currentPage.value - 1) * maxRowsPerPage,
+    currentPage.value * maxRowsPerPage
+  )
 })
 
 const columns = [

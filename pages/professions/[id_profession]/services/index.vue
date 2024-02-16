@@ -75,6 +75,16 @@
           />
         </template>
       </UTable>
+      <div
+        v-if="serviceStore.services.length > maxRowsPerPage"
+        class="flex justify-end px-3 py-3.5 border-t border-gray-200 dark:border-gray-700"
+      >
+        <UPagination
+          v-model="currentPage"
+          :page-count="maxRowsPerPage"
+          :total="serviceStore.services.length"
+        />
+      </div>
     </UCard>
   </div>
 </template>
@@ -102,18 +112,29 @@ if (profession !== undefined && profession !== null) {
   await navigateTo('/professions')
 }
 
+const currentPage = ref(1)
+const maxRowsPerPage = 5
+
 const filter = ref('')
 
 const filteredRows = computed(() => {
   if (!filter.value) {
-    return serviceStore.services
+    return serviceStore.services.slice(
+      (currentPage.value - 1) * maxRowsPerPage,
+      currentPage.value * maxRowsPerPage
+    )
   }
 
-  return serviceStore.services.filter((service) => {
+  const filteredServices = serviceStore.services.filter((service) => {
     return Object.values(service).some((value) => {
       return String(value).toLowerCase().includes(filter.value.toLowerCase())
     })
   })
+
+  return filteredServices.slice(
+    (currentPage.value - 1) * maxRowsPerPage,
+    currentPage.value * maxRowsPerPage
+  )
 })
 
 const columns = [
