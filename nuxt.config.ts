@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: {
-    enabled: true,
+    enabled: false,
 
     timeline: {
       enabled: true,
@@ -15,6 +15,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxt/image',
     '@nuxtjs/i18n',
+    'nuxt-security',
     [
       '@nuxtjs/google-fonts',
       {
@@ -40,6 +41,13 @@ export default defineNuxtConfig({
     public: {
       api: '',
       files: '',
+    },
+  },
+  security: {
+    headers: {
+      contentSecurityPolicy: {
+        'img-src': ['self', 'data:', 'http://localhost:3333'],
+      },
     },
   },
 })

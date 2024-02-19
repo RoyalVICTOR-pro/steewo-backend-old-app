@@ -24,6 +24,7 @@
                 :src="(file as string) + '?' + Math.floor(Math.random() * 1000)"
                 alt="picto"
                 class="w-48"
+                crossorigin="anonymous"
               />
             </div>
           </template>
