@@ -45,21 +45,10 @@
           </UButton>
         </template>
         <template #actions-data="{ row }">
-          <UButton
-            :to="`/professions/${row.id}`"
-            icon="i-heroicons-pencil-square"
-            size="sm"
-            color="gray"
-            square
-            variant="ghost"
-          />
-          <UButton
-            @click="professionStore.deleteProfession(row.id)"
-            icon="i-heroicons-trash"
-            size="sm"
-            color="gray"
-            square
-            variant="ghost"
+          <EditDeleteButtons
+            :updateRoute="`/professions/${row.id}`"
+            :confirmMessage="$t('bo.messages.deleteProfessionConfirm')"
+            @delete-item="professionStore.deleteProfession(row.id)"
           />
         </template>
       </UTable>

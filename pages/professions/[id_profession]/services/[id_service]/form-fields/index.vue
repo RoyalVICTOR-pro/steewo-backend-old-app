@@ -37,23 +37,12 @@
           {{ getTypeLabelByValue(row.type) }}
         </template>
         <template #actions-data="{ row }">
-          <UButton
-            :to="`/professions/${route.params.id_profession}/services/${route.params.id_service}/form-fields/${row.id}`"
-            icon="i-heroicons-pencil-square"
-            size="sm"
-            color="gray"
-            square
-            variant="ghost"
-          />
-          <UButton
-            @click="
+          <EditDeleteButtons
+            :updateRoute="`/professions/${route.params.id_profession}/services/${route.params.id_service}/form-fields/${row.id}`"
+            :confirmMessage="$t('bo.messages.deleteFormfieldConfirm')"
+            @delete-item="
               formFieldStore.deleteFormField(row.id, route.params.id_service)
             "
-            icon="i-heroicons-trash"
-            size="sm"
-            color="gray"
-            square
-            variant="ghost"
           />
         </template>
       </UTable>

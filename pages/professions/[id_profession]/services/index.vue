@@ -55,23 +55,12 @@
           </UButton>
         </template>
         <template #actions-data="{ row }">
-          <UButton
-            :to="`/professions/${route.params.id_profession}/services/${row.id}`"
-            icon="i-heroicons-pencil-square"
-            size="sm"
-            color="gray"
-            square
-            variant="ghost"
-          />
-          <UButton
-            @click="
+          <EditDeleteButtons
+            :updateRoute="`/professions/${route.params.id_profession}/services/${row.id}`"
+            :confirmMessage="$t('bo.messages.deleteServiceConfirm')"
+            @delete-item="
               serviceStore.deleteService(row.id, route.params.id_profession)
             "
-            icon="i-heroicons-trash"
-            size="sm"
-            color="gray"
-            square
-            variant="ghost"
           />
         </template>
       </UTable>

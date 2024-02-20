@@ -110,6 +110,12 @@ export default defineI18nConfig(() => ({
         messages: {
           noValues: 'Aucune valeur pour le moment',
           noItems: "Aucune donnée pour l'instant.",
+          deleteProfessionConfirm:
+            'Vous êtes sur le point de supprimer ce métier.<br />Êtes-vous sûr ?',
+          deleteServiceConfirm:
+            'Vous êtes sur le point de supprimer ce service.<br />Êtes-vous sûr ?',
+          deleteFormfieldConfirm:
+            'Vous êtes sur le point de supprimer ce champ.<br />Êtes-vous sûr ?',
         },
         placeholders: {
           search: 'Rechercher...',
