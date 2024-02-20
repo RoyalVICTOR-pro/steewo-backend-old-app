@@ -46,7 +46,13 @@ export default defineNuxtConfig({
   security: {
     headers: {
       contentSecurityPolicy: {
-        'img-src': ['self', 'data:', 'http://localhost:3333'],
+        'img-src': [
+          'self',
+          'data:',
+          'http://localhost:3333',
+          'https://avengers.steewo.io/',
+          'https://steewo-space-fr-01.fra1.cdn.digitaloceanspaces.com/',
+        ],
       },
     },
   },
